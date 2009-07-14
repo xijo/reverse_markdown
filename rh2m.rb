@@ -1,6 +1,8 @@
 require 'rexml/document'
-require 'xmlsimple'
 include REXML
+
+require "benchmark"
+include Benchmark
 
 # reverse markdown for ruby
 # author: JO
@@ -13,7 +15,6 @@ include REXML
 # - 
 
 bla3 = <<-EOF
-<div>
 <h2>heading 1.1</h2>
 
 text *italic* and **bold**.
@@ -55,6 +56,8 @@ sdf sdfsdf
   amet. <em>italic</em></p>
 </blockquote>
 
+<hr />
+
 <blockquote>
   <p>Lorem ipsum dolor sit amet, consetetur
   sadipscing elitr, sed diam nonumy
@@ -62,145 +65,181 @@ sdf sdfsdf
   dolore magna aliquyam erat, sed</p>
 </blockquote>
 
-</div>
+<p>nur ein text! nur eine maschine!</p>
 EOF
 
-@@li_counter = 0
-@@links = []
-
-def opening(type, parent)
-  case type.name
-    when /h1/
-      "# "
-    when /li/
-      parent.eql?('ul') ? " - " : " "+(@@li_counter+=1).to_s+". "
-    when /ol|ul/
-      @@li_counter = 0
-      ""
-    when /\Ah2/
-      "## "
-    when /em/
-      "*"
-    when /strong/
-      "**"
-    when /blockquote/
-      # remove leading newline
-      type.children.first.value = ""
-      "> "
-    when /code/
-      parent.eql?('pre') ? "    " : "`"
-    when /a/
-      "["
-    when /img/
-      "!["
-    else
-      ""
-  end
-end
-
-def ending(type, parent)
-  case type.name
-    when /h1/
-      " #\n\n"
-    when /p/
-      "\n"
-    when /ul|ol/
-      parent.eql?('li') ? "" : "\n"
-    when /h2/
-      " ##\n\n"
-    when /em/
-      "*"
-    when /strong/
-      "**"
-    when /li|blockquote/
-      ""
-    when /code/
-      parent.eql?('pre') ? "" : "`"
-    when /a/
-      @@links << type.attribute('href').to_s
-      "][" + @@links.size.to_s + "] "
-    when /img/
-      @@links << type.attribute('src').to_s
-      "" + type.attribute('alt').to_s + "][" + @@links.size.to_s + "] "
-      "#{type.attribute('alt')}][#{@@links.size}] "
-    else
-      "type: " + type.name + "\n" 
-    end
-end
-
-def parse_element(element, str, parent, intend=0)
-  # intend elements, i.g. list items
-  intend.times do
-    str << "  " if element.name.eql?('li')
-  end
-
-  str << opening(element, parent)
+class ReverseMarkdown
   
-  if (element.has_text? and element.children.size < 2)
+  def initialize()
+    @li_counter = 0
+    @links = []
+    @output = ""
+    @indent = 0
+    @errors = []
+  end
+  
+  def parse_string(string)
+    doc = Document.new("<root>\n"+string+"\n</root>")
+    root = doc.root
+    
+    root.elements.each do |element|
+      parse_element(element, 'root')
+    end
+
+    insert_links()
+    @output
+  end
+  
+  def parse_element(element, parent)
+    name = element.name.to_sym
+    @output << indent(element)
+    @output << opening(element, parent)
+    
+    #@output << text_only_element()
+    if (element.has_text? and element.children.size < 2)
+      @output << text_node(element, parent)
+    end
+    
+    if element.has_elements? and element.children.size >= 2
+      element.children.each do |child|
+        # inc intendtion if nested list
+        @indent += 1 if element.name=~/(ul|ol)/ and parent.eql?(:li)
+        
+        if child.node_type.eql?(:element)
+          parse_element(child, element.name.to_sym)
+        else
+          if parent.eql?(:blockquote)
+            @output << child.to_s.gsub("\n ", "\n>")
+          else
+            @output << child.to_s
+          end
+        end
+        
+        #close intend if end of nested list
+        @indent -= 1 if element.name=~/(ul|ol)/ and parent.eql?(:li)
+      end
+    end
+    @output << ending(element, parent)
+  end
+
+  
+  def opening(type, parent)
+    case type.name.to_sym
+      when :h1
+        "# "
+      when :li
+        parent.eql?(:ul) ? " - " : " "+(@li_counter+=1).to_s+". "
+      when :ol
+        @li_counter = 0
+        ""
+      when :ul
+        ""
+      when :h2
+        "## "
+      when :em
+        "*"
+      when :strong
+        "**"
+      when :blockquote
+        # remove leading newline
+        type.children.first.value = ""
+        "> "
+      when :code
+        parent.eql?(:pre) ? "    " : "`"
+      when :a
+        "["
+      when :img
+        "!["
+      when :hr
+        "----------\n\n"
+      else
+        @errors << "unknown start tag: "+type.name.to_s
+        ""
+    end
+  end
+  
+  def ending(type, parent)
+  case type.name.to_sym
+    when :h1
+      " #\n\n"
+    when :h2
+      " ##\n\n"
+    when :p
+      "\n"
+    when :ol
+      parent.eql?(:li) ? "" : "\n"
+    when :ul
+      parent.eql?(:li) ? "" : "\n"
+    when :em
+      "*"
+    when :strong
+      "**"
+    when :li
+      ""
+    when :blockquote
+      ""
+    when :code
+      parent.eql?(:pre) ? "" : "`"
+    when :a
+      @links << type.attribute('href').to_s
+      "][" + @links.size.to_s + "] "
+    when :img
+      @links << type.attribute('src').to_s
+      "" + type.attribute('alt').to_s + "][" + @links.size.to_s + "] "
+      "#{type.attribute('alt')}][#{@links.size}] "
+    else
+      @errors << "  unknown end tag: "+type.name.to_s
+      ""
+    end
+  end
+  
+  def indent(element)
+    str = ""
+    @indent.times do
+      str << "  " if element.name.eql?('li')
+    end
+    str
+  end
+  
+  def text_node(element, parent)
     # code block
-    if element.name.eql?('code')  and parent.eql?('pre')
-      str << element.text.gsub("\n","\n    ")
+    if element.name.to_sym.eql?(:code)  and parent.eql?(:pre)
+      element.text.gsub("\n","\n    ")
     # blockquote
-    elsif parent.eql?('blockquote')
-      str << element.text.gsub!("\n ","\n>")
+    elsif parent.eql?(:blockquote)
+      element.text.gsub!("\n ","\n>")
     # normal text
     else
-      str << element.text
+      element.text
     end
   end
-
-
   
-  if element.has_elements?
-    element.children.each do |child|
-      # inc intendtion if nested list
-      intend += 1 if element.name=~/(ul|ol)/ and parent.eql?('li')
-      
-      if child.node_type.eql?(:element)
-        parse_element(child, str, element.name, intend)
-      else
-        if parent.eql?('blockquote')
-          str << child.to_s.gsub("\n ", "\n>")
-        else
-          str << child.to_s
-        end
-      end
-
-      
-      #close intend if end of nested list
-      intend -= 1 if element.name=~/(ul|ol)/ and parent.eql?('li')
+  def insert_links
+    @output << "\n"
+    @links.each_index do |index|
+      @output << "  [#{index+1}]: #{@links[index]}\n"
     end
-
-
   end
-  str << ending(element, parent)
+  
+  def print_errors
+    @errors.each do |error|
+      puts error
+    end
+  end
+  
+  def speed_benchmark(string, n)
+    initialize()
+    bm(15) do |test|
+      test.report("reverse markdown:")    { n.times do; parse_string(string); initialize(); end; }
+    end
+  end
   
 end
 
-doc = Document.new(bla3)
-root = doc.root
+r = ReverseMarkdown.new
 
-#puts root.elements[1].methods.inspect
+puts r.parse_string(bla3)
 
-output = ""
+r.print_errors
 
-root.elements.each do |element|
-  str = ""
-  parse_element(element, str, 'root')
-  output << str
-end
-
-# process links
-@@links.each_index do |index|
-  output << "  [#{index+1}]: #{@@links[index]}\n"
-end
-
-print output
-
-puts '-------'
-
-puts root.elements['pre'][0].text
-
-root.elements[3].children.each do |child|
-  #puts child.node_type.eql?(:element)
-end
+r.speed_benchmark(bla3, 100)
