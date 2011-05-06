@@ -9,6 +9,7 @@ include Benchmark
 # date: 14.7.2009
 # version: 0.1
 # license: GPL
+# taken from https://github.com/xijo/reverse-markdown/raw/master/reverse_markdown.rb
 
 # TODO
 # - ol numbering is buggy, in fact doesn't matter for markdown code
@@ -36,10 +37,7 @@ class ReverseMarkdown
   # After parsing all elements, the 'reference style'-links will be inserted.
   def parse_string(string)
     doc = Document.new("<root>\n"+string+"\n</root>")
-    root = doc.root
-    root.elements.each do |element|
-      parse_element(element, :root)
-    end
+    parse_element(doc.root, :none)
     insert_links()
     @output
   end
@@ -117,6 +115,8 @@ class ReverseMarkdown
         "!["
       when :hr
         "----------\n\n"
+      when :root
+        ""
       else
         @errors << "unknown start tag: "+type.name.to_s
         ""
@@ -153,6 +153,8 @@ class ReverseMarkdown
         @links << type.attribute('src').to_s
         "" + type.attribute('alt').to_s + "][" + @links.size.to_s + "] "
         "#{type.attribute('alt')}][#{@links.size}] "
+      when :root
+        ""
       else
         @errors << "  unknown end tag: "+type.name.to_s
         ""
@@ -208,6 +210,8 @@ end
 
 # Example HTML Code for parsing
 example = <<-EOF
+This text, though not within an element, should also be shown.
+
 <h2>heading 1.1</h2>
 
 <p>text *italic* and **bold**.</p>
@@ -258,7 +262,11 @@ sdf sdfsdf
   dolore magna aliquyam erat, sed</p>
 </blockquote>
 
+This should also be shown, even if it's not wrapped in an element. 
+
 <p>nur ein text! nur eine maschine!</p>
+
+This text should not be invisible!
 EOF
 
 r = ReverseMarkdown.new
