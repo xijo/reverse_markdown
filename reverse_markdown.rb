@@ -208,8 +208,10 @@ class ReverseMarkdown
   
 end
 
-# Example HTML Code for parsing
-example = <<-EOF
+if __FILE__ == $0
+
+  # Example HTML Code for parsing
+  example = <<-EOF
 This text, though not within an element, should also be shown.
 
 <h2>heading 1.1</h2>
@@ -269,10 +271,11 @@ This should also be shown, even if it's not wrapped in an element.
 This text should not be invisible!
 EOF
 
-r = ReverseMarkdown.new
+  r = ReverseMarkdown.new
 
-puts r.parse_string(example)
+  puts r.parse_string(example)
 
-#r.print_errors
+  #r.print_errors
 
-#r.speed_benchmark(example, 100)
+  #r.speed_benchmark(example, 100)
+end
