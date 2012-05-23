@@ -13,10 +13,10 @@ include Benchmark
 
 # TODO
 # - ol numbering is buggy, in fact doesn't matter for markdown code
-# - 
+# -
 
 class ReverseMarkdown
-  
+
   # set basic variables:
   # - @li_counter: numbering list item (li) tags in an ordered list (ol)
   # - @links:      hold the links for adding them to the bottom of the @output
@@ -31,7 +31,7 @@ class ReverseMarkdown
     @indent = 0
     @errors = []
   end
-  
+
   # Invokes the HTML parsing by using a string. Returns the markdown code in @output.
   # To garantuee well-formed xml for REXML a <root> element will be added, but has no effect.
   # After parsing all elements, the 'reference style'-links will be inserted.
@@ -41,7 +41,7 @@ class ReverseMarkdown
     insert_links()
     @output
   end
-  
+
   # Parsing an element and its children (recursive) and writing its markdown code to @output
   # 1. do indent for nested list items
   # 2. add the markdown opening tag for this element
@@ -54,18 +54,18 @@ class ReverseMarkdown
     @output << indent() if name.eql?(:li)
     # 2.
     @output << opening(element, parent)
-    
+
     # 3a.
     if (element.has_text? and element.children.size < 2)
       @output << text_node(element, parent)
     end
-    
+
     # 3b.
     if element.has_elements?
       element.children.each do |child|
         # increase indent if nested list
         @indent += 1 if element.name=~/(ul|ol)/ and parent.eql?(:li)
-        
+
         if child.node_type.eql?(:element)
           parse_element(child, element.name.to_sym)
         else
@@ -75,12 +75,12 @@ class ReverseMarkdown
             @output << child.to_s
           end
         end
-        
+
         # decrease indent if end of nested list
         @indent -= 1 if element.name=~/(ul|ol)/ and parent.eql?(:li)
       end
     end
-    
+
     # 4.
     @output << ending(element, parent)
   end
@@ -99,6 +99,14 @@ class ReverseMarkdown
         ""
       when :h2
         "## "
+      when :h3
+        "### "
+      when :h4
+        "#### "
+      when :h5
+        "##### "
+      when :h6
+        "###### "
       when :em
         "*"
       when :strong
@@ -122,7 +130,7 @@ class ReverseMarkdown
         ""
     end
   end
-  
+
   # Returns the closing markdown tag, like opening()
   def ending(type, parent)
     case type.name.to_sym
@@ -130,6 +138,14 @@ class ReverseMarkdown
         " #\n\n"
       when :h2
         " ##\n\n"
+      when :h3
+        " ###\n\n"
+      when :h4
+        " ####\n\n"
+      when :h5
+        " #####\n\n"
+      when :h6
+        " ######\n\n"
       when :p
         parent.eql?(:root) ? "\n\n" : "\n"
       when :ol
@@ -160,7 +176,7 @@ class ReverseMarkdown
         ""
     end
   end
-  
+
   # Perform indent: two space, @indent times - quite simple! :)
   def indent
     str = ""
@@ -169,7 +185,7 @@ class ReverseMarkdown
     end
     str
   end
-  
+
   # Return the content of element, which should be just text.
   # If its a code block to indent of 4 spaces.
   # For block quotation add a leading '>'
@@ -182,7 +198,7 @@ class ReverseMarkdown
       element.text
     end
   end
-  
+
   # Insert the mentioned reference style links.
   def insert_links
     @output << "\n"
@@ -190,14 +206,14 @@ class ReverseMarkdown
       @output << "  [#{index+1}]: #{@links[index]}\n"
     end
   end
-  
+
   # Print out all errors, that occured and have been written to @errors.
   def print_errors
     @errors.each do |error|
       puts error
     end
   end
-  
+
   # Perform a benchmark on a given string n-times.
   def speed_benchmark(string, n)
     initialize()
@@ -205,7 +221,7 @@ class ReverseMarkdown
       test.report("reverse markdown:")    { n.times do; parse_string(string); initialize(); end; }
     end
   end
-  
+
 end
 
 if __FILE__ == $0
@@ -264,7 +280,7 @@ sdf sdfsdf
   dolore magna aliquyam erat, sed</p>
 </blockquote>
 
-This should also be shown, even if it's not wrapped in an element. 
+This should also be shown, even if it's not wrapped in an element.
 
 <p>nur ein text! nur eine maschine!</p>
 

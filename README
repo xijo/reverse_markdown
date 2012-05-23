@@ -7,7 +7,7 @@ This is just a little scripting work, feel free to use it, change it, damn it or
 
 Features
 --------
- * supported tags: h1, h2, p, em, strong, blockquote, code, img, a, hr, li, ol, ul
+ * supported tags: h1, h2, h3, h4, h5, h6, p, em, strong, blockquote, code, img, a, hr, li, ol, ul
  * nested lists
  * inline and block code
 
@@ -16,7 +16,7 @@ Usage
  1. Include ReverseMarkdown class to your application
  2. get an instance: r = ReverseMarkdown.new
  3. parse a HTML string and save the return value: markdown = r.parse_string(html_string)
- 
+
 Look at
 -------
  wmd-editor: http://wmd-editor.com/
