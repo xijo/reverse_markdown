@@ -2,6 +2,8 @@
 
 Transform existing html into markdown in a simple way, for example if you want to import existings tags into your markdown based application.
 
+[![reverse_markdown build status](http://travis-ci.org/xijo/reverse_markdown.png)](http://travis-ci.org/#!/xijo/reverse_markdown)
+
 # Installation
 
 Install the gem:
