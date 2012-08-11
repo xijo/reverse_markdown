@@ -51,7 +51,8 @@ module ReverseMarkdown
           else
             "\n\n"
           end
-        when /h(\d)/
+        when :h1, :h2, :h3, :h4 # /h(\d)/ for 1.9
+          element.name =~ /h(\d)/
           '#' * $1.to_i + ' '
         when :em
           "*"
@@ -78,7 +79,7 @@ module ReverseMarkdown
       case element.name.to_sym
         when :html, :body, :pre, :hr, :p
           ""
-        when /h(\d)/
+        when :h1, :h2, :h3, :h4 # /h(\d)/ for 1.9
           "\n"
         when :em
           '*'
