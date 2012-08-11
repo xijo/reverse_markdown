@@ -1,0 +1,12 @@
+rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+  - ree
+
+script: "bundle exec rake spec"
+
+notifications:
+  disabled: false
+  recipients:
+    - xijo@gmx.de
