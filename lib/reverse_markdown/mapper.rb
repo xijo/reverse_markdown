@@ -61,7 +61,7 @@ module ReverseMarkdown
         when :blockquote
           "> "
         when :code
-          parent == :pre ? "    " : "`"
+          parent == :pre ? "    " : " `"
         when :a
           "["
         when :img
@@ -88,7 +88,7 @@ module ReverseMarkdown
         when :li, :blockquote, :root, :ol, :ul
           "\n"
         when :code
-          parent == :pre ? '' : '`'
+          parent == :pre ? '' : '` '
         when :a
           "](#{element.attribute('href').to_s}) "
         when :img
