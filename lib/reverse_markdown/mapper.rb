@@ -13,7 +13,7 @@ module ReverseMarkdown
     def process_element(element)
       output = ''
       output << if element.text?
-        element.text.strip
+        process_text(element)
       else
         opening(element)
       end
@@ -100,6 +100,16 @@ module ReverseMarkdown
         else
           handle_error "unknown end tag: #{element.name}"
           ""
+      end
+    end
+
+    def process_text(element)
+      parent = element.parent ? element.parent.name.to_sym : nil
+      case parent
+        when :code
+          element.text.strip.gsub(/\n/,"\n    ")
+        else
+          element.text.strip
       end
     end
 
