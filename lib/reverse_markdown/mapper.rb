@@ -64,7 +64,7 @@ module ReverseMarkdown
           "> "
         when :code
           if parent == :pre
-            self.github_style_code_blocks ? "\n```\n" : "    "
+            self.github_style_code_blocks ? "\n```\n" : "\n    "
           else
             " `"
           end
@@ -95,7 +95,7 @@ module ReverseMarkdown
           "\n"
         when :code
           if parent == :pre
-            self.github_style_code_blocks ? "\n```\n" : ''
+            self.github_style_code_blocks ? "\n```" : "\n"
           else
            '` '
           end

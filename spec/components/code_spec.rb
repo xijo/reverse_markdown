@@ -15,7 +15,7 @@ describe ReverseMarkdown::Mapper do
 
     it { should match /inline `code` block/ }
     it { should match /```\nvar this\;\nthis/ }
-    it { should match /it is"\)\n```\n/ }
+    it { should match /it is"\)\n```/ }
   end
 
 end
