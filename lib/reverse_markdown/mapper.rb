@@ -50,6 +50,14 @@ module ReverseMarkdown
         when :p
           if element.ancestors.map(&:name).include?('blockquote')
             "\n\n> "
+          elsif [nil, :body].include? parent
+            is_first = true
+            previous = element.previous
+            while is_first == true and previous do
+              is_first = false unless previous.content.strip == "" || previous.text?
+              previous = previous.previous
+            end
+            is_first ? "" : "\n\n"
           else
             "\n\n"
           end
