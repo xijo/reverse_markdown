@@ -3,11 +3,13 @@ module ReverseMarkdown
     attr_accessor :raise_errors
     attr_accessor :log_enabled, :log_level
     attr_accessor :li_counter
+    attr_accessor :github_style_code_blocks
 
-    def initialize
+    def initialize(opts={})
       self.log_level   = :info
       self.log_enabled = true
       self.li_counter  = 0
+      self.github_style_code_blocks = opts[:github_style_code_blocks] || false
     end
 
     def process_element(element)
@@ -61,7 +63,11 @@ module ReverseMarkdown
         when :blockquote
           "> "
         when :code
-          parent == :pre ? "    " : " `"
+          if parent == :pre
+            self.github_style_code_blocks ? "\n```\n" : "    "
+          else
+            " `"
+          end
         when :a
           "["
         when :img
@@ -88,7 +94,11 @@ module ReverseMarkdown
         when :li, :blockquote, :root, :ol, :ul
           "\n"
         when :code
-          parent == :pre ? '' : '` '
+          if parent == :pre
+            self.github_style_code_blocks ? "\n```\n" : ''
+          else
+           '` '
+          end
         when :a
           "](#{element.attribute('href').to_s}) "
         when :img
@@ -105,8 +115,8 @@ module ReverseMarkdown
 
     def process_text(element)
       parent = element.parent ? element.parent.name.to_sym : nil
-      case parent
-        when :code
+      case
+        when parent == :code && !self.github_style_code_blocks
           element.text.strip.gsub(/\n/,"\n    ")
         else
           element.text.strip

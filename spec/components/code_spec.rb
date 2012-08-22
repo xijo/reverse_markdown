@@ -10,5 +10,13 @@ describe ReverseMarkdown::Mapper do
   it { should match /\    var this\;\n    this\.is/ }
   it { should match /block"\)\n    console/ }
 
+  context "with github style code blocks" do
+    subject { ReverseMarkdown.parse_string(input, github_style_code_blocks: true) }
+
+    it { should match /inline `code` block/ }
+    it { should match /```\nvar this\;\nthis/ }
+    it { should match /it is"\)\n```\n/ }
+  end
+
 end
 
