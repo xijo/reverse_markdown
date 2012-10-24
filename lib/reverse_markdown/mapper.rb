@@ -12,21 +12,66 @@ module ReverseMarkdown
       self.github_style_code_blocks = opts[:github_style_code_blocks] || false
     end
 
+    def process_root(element)
+      markdown = process_element(element)  # recursively process all elements to get full markdown
+
+      # Extract github style code blocks
+      extractions = {}
+      markdown.gsub!(%r{```.*?```}m) do |match|
+        md5 = Digest::MD5.hexdigest(match)
+        extractions[md5] = match
+        "{code-block-extraction-#{md5}}"
+      end
+
+      markdown = markdown.split("\n").map do |line|
+        if line.match(/^( {4}|\t)/)
+          line
+        else
+          "#{ '  ' if line.match(/^ {2,3}/) }" +
+          normalize_whitespace(line).strip +
+          "#{ '  ' if line.match(/ {2}$/) }"
+        end
+      end.join("\n")
+
+      markdown.gsub!(/\n{3,}/, "\n\n")
+
+      # Insert pre block extractions
+      markdown.gsub!(/\{code-block-extraction-([0-9a-f]{32})\}/){ extractions[$1] }
+
+      markdown
+    end
+
     def process_element(element)
       output = ''
-      output << if element.text?
-        process_text(element)
+      if element.text?
+        text = process_text(element)
+        if output.end_with?(' ') && text.start_with?(' ')
+          output << text.lstrip
+        else
+          output << text
+        end
       else
-        opening(element)
+        output << opening(element).to_s
+
+        markdown_chunks = element.children.map { |child| process_element(child) }
+        remove_adjacent_whitespace!(markdown_chunks)
+        output << markdown_chunks.join
+
+        output << ending(element).to_s
       end
-      element.children.each do |child|
-        output << process_element(child)
-      end
-      output << ending(element) unless element.text?
       output
     end
 
     private
+
+    # removes whitespace-only chunk if the previous chunk ends with whitespace
+    def remove_adjacent_whitespace!(chunks)
+      (chunks.size - 1).downto(1).each do |i|
+        chunk = chunks[i]
+        previous_chunk = chunks[i-1]
+        chunks.delete_at(i) if chunk == ' ' && previous_chunk.end_with?(' ')
+      end
+    end
 
     def opening(element)
       parent = element.parent ? element.parent.name.to_sym : nil
@@ -47,6 +92,8 @@ module ReverseMarkdown
           "\n"
         when :ul, :root#, :p
           "\n"
+        when :div
+          "\n"
         when :p
           if element.ancestors.map(&:name).include?('blockquote')
             "\n\n> "
@@ -63,11 +110,11 @@ module ReverseMarkdown
           end
         when :h1, :h2, :h3, :h4 # /h(\d)/ for 1.9
           element.name =~ /h(\d)/
-          '#' * $1.to_i + ' '
-        when :em
-          "*"
-        when :strong
-          "**"
+          "\n" + ('#' * $1.to_i) + ' '
+        when :em, :i
+          element.text.strip.empty? ? '' : '_' if (element.ancestors('em') + element.ancestors('i')).empty?
+        when :strong, :b
+          element.text.strip.empty? ? '' : '**' if (element.ancestors('strong') + element.ancestors('b')).empty?
         when :blockquote
           "> "
         when :code
@@ -77,11 +124,17 @@ module ReverseMarkdown
             " `"
           end
         when :a
-          "["
+          if !element.text.strip.empty? && element['href'] && !element['href'].start_with?('#')
+            " ["
+          else
+            " "
+          end
         when :img
-          "!["
+          " !["
         when :hr
-          "----------\n\n"
+          "\n----------\n"
+        when :br
+          "  \n"
         else
           handle_error "unknown start tag: #{element.name.to_s}"
           ""
@@ -91,14 +144,18 @@ module ReverseMarkdown
     def ending(element)
       parent = element.parent ? element.parent.name.to_sym : nil
       case element.name.to_sym
-        when :html, :body, :pre, :hr, :p
+        when :html, :body, :pre, :hr
           ""
+        when :p
+          "\n\n"
+        when :div
+          "\n"
         when :h1, :h2, :h3, :h4 # /h(\d)/ for 1.9
           "\n"
-        when :em
-          '*'
-        when :strong
-          '**'
+        when :em, :i
+          element.text.strip.empty? ? '' : '_' if (element.ancestors('em') + element.ancestors('i')).empty?
+        when :strong, :b
+          element.text.strip.empty? ? '' : '**' if (element.ancestors('strong') + element.ancestors('b')).empty?
         when :li, :blockquote, :root, :ol, :ul
           "\n"
         when :code
@@ -108,27 +165,46 @@ module ReverseMarkdown
            '` '
           end
         when :a
-          "](#{element.attribute('href').to_s}) "
-        when :img
-          if element.has_attribute?('alt')
-            "#{element.attribute('alt')}][#{element.attribute('src')}] "
+          if !element.text.strip.empty? && element['href'] && !element['href'].start_with?('#')
+            "](#{element['href']}#{title_markdown(element)}) "
           else
-            "#{element.attribute('src')}] "
+            ""
           end
+        when :img
+          "#{element['alt']}](#{element['src']}#{title_markdown(element)}) "
         else
           handle_error "unknown end tag: #{element.name}"
           ""
       end
     end
 
+    def title_markdown(element)
+      title = element['title']
+      title ? %[ "#{title}"] : ''
+    end
+
     def process_text(element)
       parent = element.parent ? element.parent.name.to_sym : nil
       case
-        when parent == :code && !self.github_style_code_blocks
-          element.text.strip.gsub(/\n/,"\n    ")
+        when parent == :code
+          if self.github_style_code_blocks
+            element.text
+          else
+            element.text.strip.gsub(/\n/,"\n    ")
+          end
         else
-          element.text.strip
+          normalize_whitespace(escape_text(element.text))
       end
+    end
+
+    def normalize_whitespace(text)
+      text.tr("\n\t", ' ').squeeze(' ')
+    end
+
+    def escape_text(text)
+      text.
+        gsub('*', '\*').
+        gsub('_', '\_')
     end
 
     def handle_error(message)

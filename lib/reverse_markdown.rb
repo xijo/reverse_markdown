@@ -11,7 +11,7 @@ module ReverseMarkdown
       when Nokogiri::XML::Document then input.root
       when Nokogiri::XML::Node     then input
     end
-    ReverseMarkdown::Mapper.new(opts).process_element(root)
+    ReverseMarkdown::Mapper.new(opts).process_root(root)
   end
 
   # 2012/08/11 joe: possibly deprecate in favour of #parse
