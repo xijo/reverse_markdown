@@ -6,7 +6,7 @@ describe ReverseMarkdown::Mapper do
   let(:document) { Nokogiri::HTML(input) }
   subject { ReverseMarkdown.parse_string(input) }
 
-  it { subject.should include "\n    Block of code" }
-  it { subject.should include "\n> First quoted paragraph\n\n> Second quoted paragraph" }
+  it { should include "\n    Block of code" }
+  it { should include "\n> First quoted paragraph\n\n> Second quoted paragraph" }
 
 end

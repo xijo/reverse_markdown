@@ -1,10 +1,19 @@
 <html>
   <body>
+    some text...
     <a href="http://foobar.com">Foobar</a>
-    <a href="http://strong.foobar.com">
-      <strong>Strong foobar</strong>
-    </a>
+    <a href="http://foobar.com" title="f***** up beyond all recognition">Fubar</a>
+    <a href="http://strong.foobar.com"><strong>Strong foobar</strong></a>
+
+    ignore <a href="foo.html">   </a> anchor tags with no link text
+    pass through the text of <a href="#content">internal jumplinks</a> without treating them as links
+    pass through the text of <a id="content">anchor tags with no href</a> without treating them as links
+
+    some text...
+
     <img src="http://foobar.com/logo.png">
     <img alt="foobar image" src="http://foobar.com/foobar.png">
+    <img alt="foobar image 2" title="this is the foobar image 2" src="http://foobar.com/foobar2.png">
+    some text...
   </body>
 </html>

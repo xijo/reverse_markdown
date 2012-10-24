@@ -12,10 +12,16 @@ describe ReverseMarkdown::Mapper do
 
   context "with github style code blocks" do
     subject { ReverseMarkdown.parse_string(input, :github_style_code_blocks => true) }
-
     it { should match /inline `code` block/ }
     it { should match /```\nvar this\;\nthis/ }
-    it { should match /it is"\)\n```/ }
+    it { should match /it is"\) ?\n\t\n```/ }
+  end
+
+  context "code with indentation" do
+    subject { ReverseMarkdown.parse_string(input) }
+    it { should match(/^    tell application "Foo"\n/) }
+    it { should match(/^        beep\n/) }
+    it { should match(/^    end tell\n/) }
   end
 
 end
