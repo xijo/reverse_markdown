@@ -31,7 +31,7 @@ describe ReverseMarkdown::Mapper do
   it { should match /br tags become double space followed by newline  \n/ }
   #it { should match /br tags XXX  \n/ }
 
-  it { should match /\nbefore hr ?\n----------\n ?after hr\n/ }
+  it { should match /\nbefore hr ?\n\* \* \*\n ?after hr\n/ }
 
   it { should match /section 1\n ?\nsection 2/ }
 end

@@ -132,7 +132,7 @@ module ReverseMarkdown
         when :img
           " !["
         when :hr
-          "\n----------\n"
+          "\n* * *\n"
         when :br
           "  \n"
         else
