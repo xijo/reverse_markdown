@@ -41,8 +41,9 @@ Only basic html tags are supported right now. However, it should not be to diffi
 
 # See as well
 
-- [wmd-editor](http://wmd-editor.com)
-- [markdown syntax](http://daringfireball.net/projects/markdown)
+- [wmd-editor](http://wmd-editor.com) - Markdown flavored text editor
+- [markdown syntax](http://daringfireball.net/projects/markdown) - The markdown syntax specification
+- [html_massage](https://rubygems.org/gems/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown
 
 # Thanks
 
