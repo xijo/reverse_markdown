@@ -166,7 +166,7 @@ module ReverseMarkdown
           end
         when :a
           if !element.text.strip.empty? && element['href'] && !element['href'].start_with?('#')
-            "](#{element['href']}#{title_markdown(element)}) "
+            "](#{element['href']}#{title_markdown(element)})"
           else
             ""
           end
