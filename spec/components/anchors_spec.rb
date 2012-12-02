@@ -13,6 +13,8 @@ describe ReverseMarkdown::Mapper do
   it { should include ' ![](http://foobar.com/logo.png) ' }
   it { should include ' ![foobar image](http://foobar.com/foobar.png) ' }
   it { should include ' ![foobar image 2](http://foobar.com/foobar2.png "this is the foobar image 2") ' }
+  it { should include 'extra space after the [anchor](http://foobar.com).'}
+  it { should include 'But inline, [there](http://foobar.com) should be a space.'}
 
   context "links to ignore" do
     it { should include ' ignore anchor tags with no link text ' }
