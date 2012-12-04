@@ -13,6 +13,8 @@ module ReverseMarkdown
     end
 
     def process_root(element)
+      return '' if element.nil?
+
       markdown = process_element(element)  # recursively process all elements to get full markdown
 
       # Extract github style code blocks

@@ -5,6 +5,10 @@ describe ReverseMarkdown::Mapper do
   let(:document) { Nokogiri::HTML(input) }
   let(:mapper)   { ReverseMarkdown::Mapper.new }
 
+  it "behaves in a sane way when root element is nil" do
+    mapper.process_root(nil).should == ''
+  end
+
   context "error handling" do
 
     let(:unknown_element) { Nokogiri::XML::Node.new('foo', document) }
