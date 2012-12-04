@@ -16,4 +16,8 @@ describe ReverseMarkdown do
     lambda { ReverseMarkdown.parse_string(input) }.should_not raise_error
   end
 
+  it 'parses empty strings' do
+    ReverseMarkdown.parse_string('').should eql('')
+  end
+
 end

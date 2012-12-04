@@ -11,6 +11,10 @@ module ReverseMarkdown
       when Nokogiri::XML::Document then input.root
       when Nokogiri::XML::Node     then input
     end
+
+    # Capture Nokogiri::HTML("").root # => nil
+    return '' if root.nil?
+
     ReverseMarkdown::Mapper.new(opts).process_root(root)
   end
 
