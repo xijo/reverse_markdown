@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+# Usage: reverse_markdown [FILE]...
+# Usage: cat FILE | reverse_markdown
+require 'reverse_markdown'
+puts ReverseMarkdown.parse(ARGF.read)

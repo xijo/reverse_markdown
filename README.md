@@ -31,6 +31,13 @@ ReverseMarkdown.parse_element content
 ReverseMarkdown.parse_string content
 ````
 
+You can also convert html files to markdown from the command line:
+
+```sh
+$ reverse_markdown file.html > file.markdown
+$ cat file.html | reverse_markdown > file.markdown
+````
+
 # Tag support
 
 Only basic html tags are supported right now. However, it should not be to difficult to add some. Feel free to contribute or notify me about missing stuff.
