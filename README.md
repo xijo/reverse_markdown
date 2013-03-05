@@ -4,6 +4,8 @@ Transform existing html into markdown in a simple way, for example if you want t
 
 [![Build Status](https://secure.travis-ci.org/xijo/reverse_markdown.png?branch=master)](https://travis-ci.org/xijo/reverse_markdown)
 
+[![Gem Version](https://badge.fury.io/rb/reverse_markdown.png)](http://badge.fury.io/rb/reverse_markdown)
+
 # Installation
 
 Install the gem:
