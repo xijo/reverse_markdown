@@ -11,6 +11,8 @@ describe ReverseMarkdown::Mapper do
   it { should match /## h2\n/ }
   it { should match /### h3\n/ }
   it { should match /#### h4\n/ }
+  it { should match /##### h5\n/ }
+  it { should match /###### h6\n/ }
 
   it { should match /_em tag content_/ }
   it { should match /before and after empty em tags/ }
