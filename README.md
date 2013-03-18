@@ -40,11 +40,17 @@ $ reverse_markdown file.html > file.markdown
 $ cat file.html | reverse_markdown > file.markdown
 ````
 
+Additionally there is a support for github-like multiline code which is indented with "`":
+
+```ruby
+ReverseMarkdown.parse_string(input, github_style_code_blocks: true)
+````
+
 # Tag support
 
 Only basic html tags are supported right now. However, it should not be to difficult to add some. Feel free to contribute or notify me about missing stuff.
 
-- supported tags: h1, h2, h3, h4, h5, h6, p, em, strong, blockquote, code, img, a, hr, li, ol, ul
+- supported tags: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `em`, `strong`, `i`, `b`, `blockquote`, `code`, `img`, `a`, `hr`, `li`, `ol`, `ul`
 - nested lists
 - inline and block code
 
