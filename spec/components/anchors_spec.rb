@@ -18,6 +18,7 @@ describe ReverseMarkdown::Mapper do
 
   context "links to ignore" do
     it { should include ' ignore anchor tags with no link text ' }
+    it { should include ' not ignore [ ![An Image](image.png) ](foo.html) anchor tags with images' }
     it { should include ' pass through the text of internal jumplinks without treating them as links ' }
     it { should include ' pass through the text of anchor tags with no href without treating them as links ' }
   end
