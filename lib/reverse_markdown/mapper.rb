@@ -126,7 +126,7 @@ module ReverseMarkdown
             " `"
           end
         when :a
-          if !element.text.strip.empty? && element['href'] && !element['href'].start_with?('#')
+          if (!element.text.strip.empty? || element.children.map(&:name).include?('img')) && element['href'] && !element['href'].start_with?('#')
             " ["
           else
             " "
@@ -167,7 +167,7 @@ module ReverseMarkdown
            '` '
           end
         when :a
-          if !element.text.strip.empty? && element['href'] && !element['href'].start_with?('#')
+          if (!element.text.strip.empty? || element.children.map(&:name).include?('img')) && element['href'] && !element['href'].start_with?('#')
             "](#{element['href']}#{title_markdown(element)})"
           else
             ""
