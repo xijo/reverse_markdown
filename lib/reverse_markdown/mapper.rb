@@ -137,6 +137,16 @@ module ReverseMarkdown
           "\n* * *\n"
         when :br
           "  \n"
+        when :table
+          "\n\n"
+        when :tr
+          "|"
+        when :th, :td
+          if element == element.parent.first_element_child
+            " "
+          else
+            "| "
+          end
         else
           handle_error "unknown start tag: #{element.name.to_s}"
           ""
@@ -174,6 +184,17 @@ module ReverseMarkdown
           end
         when :img
           "#{element['alt']}](#{element['src']}#{title_markdown(element)}) "
+        when :table
+          "\n"
+        when :tr
+          "|\n" + \
+            if element.element_children.all? {|child| child.name.to_sym == :th}
+              "| " + (['---'] * element.element_children.size).join(' | ') + " |\n"
+            else
+              ""
+            end
+        when :th, :td
+          " "
         else
           handle_error "unknown end tag: #{element.name}"
           ""
