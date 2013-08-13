@@ -52,7 +52,7 @@ ReverseMarkdown.parse_string(input, github_style_code_blocks: true)
 
 Only basic html tags are supported right now. However, it should not be to difficult to add some. Feel free to contribute or notify me about missing stuff.
 
-- supported tags: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `em`, `strong`, `i`, `b`, `blockquote`, `code`, `img`, `a`, `hr`, `li`, `ol`, `ul`
+- supported tags: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `em`, `strong`, `i`, `b`, `blockquote`, `code`, `img`, `a`, `hr`, `li`, `ol`, `ul`, `table`, `tr`, `th`, `td`
 - nested lists
 - inline and block code
 
