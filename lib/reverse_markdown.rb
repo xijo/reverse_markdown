@@ -1,3 +1,4 @@
+require 'digest'
 require 'reverse_markdown/version'
 require 'reverse_markdown/mapper'
 require 'reverse_markdown/errors'
