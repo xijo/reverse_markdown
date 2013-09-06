@@ -3,12 +3,13 @@ module ReverseMarkdown
     attr_accessor :raise_errors
     attr_accessor :log_enabled, :log_level
     attr_accessor :li_counter
-    attr_accessor :github_style_code_blocks
+    attr_accessor :github_style_code_blocks, :allowed_tags
 
-    def initialize(opts={})
+    def initialize opts={}
       self.log_level   = :info
       self.log_enabled = true
       self.li_counter  = 0
+      self.allowed_tags = opts[:allowed_tags] || []
       self.github_style_code_blocks = opts[:github_style_code_blocks] || false
     end
 
@@ -77,7 +78,7 @@ module ReverseMarkdown
 
     def opening(element)
       parent = element.parent ? element.parent.name.to_sym : nil
-      case element.name.to_sym
+      result = case element.name.to_sym
         when :html, :body
           ""
         when :li
@@ -97,9 +98,7 @@ module ReverseMarkdown
         when :div
           "\n"
         when :p
-          if element.ancestors.map(&:name).include?('blockquote')
-            "\n\n> "
-          elsif [nil, :body].include? parent
+          if [nil, :body].include? parent
             is_first = true
             previous = element.previous
             while is_first == true and previous do
@@ -118,7 +117,7 @@ module ReverseMarkdown
         when :strong, :b
           element.text.strip.empty? ? '' : '**' if (element.ancestors('strong') + element.ancestors('b')).empty?
         when :blockquote
-          "> "
+          "\n"
         when :code
           if parent == :pre
             self.github_style_code_blocks ? "\n```\n" : "\n    "
@@ -147,16 +146,31 @@ module ReverseMarkdown
           else
             "| "
           end
+        when *self.allowed_tags
+          "<#{element.name}>"
         else
           handle_error "unknown start tag: #{element.name.to_s}"
           ""
       end
+      # if we’re inside blockquote, we should not forget about
+      unless (bqs = bq_marker(element)).empty?
+        result.gsub!(/^\n*/, '')
+        result = case element.name.to_sym
+          when :p then "\n#{result}#{bqs}"
+          when :hr, :br then "\n#{bqs}#{result}"
+          when :h1, :h2, :h3, :h4, :h5, :h6, :tr, :li, :table then "#{bqs}#{result}"
+          when *self.allowed_tags then "#{bqs}#{result}"
+          when :img then (parent == :blockquote) ? "\n\n#{bqs}#{result}" : result
+          else result
+        end
+      end
+      result
     end
 
     def ending(element)
       parent = element.parent ? element.parent.name.to_sym : nil
       case element.name.to_sym
-        when :html, :body, :pre, :hr
+        when :html, :body, :pre, :hr, :br
           ""
         when :p
           "\n\n"
@@ -195,6 +209,8 @@ module ReverseMarkdown
             end
         when :th, :td
           " "
+        when *self.allowed_tags
+          "</#{element.name}>"
         else
           handle_error "unknown end tag: #{element.name}"
           ""
@@ -215,6 +231,8 @@ module ReverseMarkdown
           else
             element.text.strip.gsub(/\n/,"\n    ")
           end
+        when parent == :blockquote
+          normalize_whitespace(escape_text("#{bq_marker(element) unless element.text.strip.empty?}#{element.text}"))
         else
           normalize_whitespace(escape_text(element.text))
       end
@@ -236,6 +254,10 @@ module ReverseMarkdown
       elsif log_enabled && defined?(Rails)
         Rails.logger.__send__(log_level, message)
       end
+    end
+
+    def bq_marker element
+      "#{'> ' * element.ancestors.map(&:name).count('blockquote')}"
     end
   end
 end
