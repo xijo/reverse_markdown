@@ -9,6 +9,26 @@ describe ReverseMarkdown::Mapper do
     mapper.process_root(nil).should == ''
   end
 
+  describe "logging options" do
+    it "has a default log level info" do
+      mapper.log_level.should eq :info
+    end
+
+    it "overwrites log level if option is given" do
+      mapper = ReverseMarkdown::Mapper.new(log_level: :error)
+      mapper.log_level.should eq :error
+    end
+
+    it "enables logging by default" do
+      mapper.log_enabled.should be_true
+    end
+
+    it "disables logging if told to" do
+      mapper = ReverseMarkdown::Mapper.new(log_enabled: false)
+      mapper.log_enabled.should be_false
+    end
+  end
+
   context "error handling" do
 
     let(:unknown_element) { Nokogiri::XML::Node.new('foo', document) }
