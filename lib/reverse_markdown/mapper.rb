@@ -6,8 +6,8 @@ module ReverseMarkdown
     attr_accessor :github_style_code_blocks
 
     def initialize(opts={})
-      self.log_level   = :info
-      self.log_enabled = true
+      self.log_level   = opts[:log_level] || :info
+      self.log_enabled = opts[:log_enabled] || true
       self.li_counter  = 0
       self.github_style_code_blocks = opts[:github_style_code_blocks] || false
     end
