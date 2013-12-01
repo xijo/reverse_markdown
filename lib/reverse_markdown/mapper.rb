@@ -7,7 +7,7 @@ module ReverseMarkdown
 
     def initialize(opts={})
       self.log_level   = opts[:log_level] || :info
-      self.log_enabled = settings[:log_enabled].nil? ? true : settings[:log_enabled]
+      self.log_enabled = opts[:log_enabled].nil? ? true : opts[:log_enabled]
       self.li_counter  = 0
       self.github_style_code_blocks = opts[:github_style_code_blocks] || false
     end
