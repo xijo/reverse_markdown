@@ -1,4 +1,6 @@
 require 'simplecov'
+require 'byebug'
+
 
 SimpleCov.adapters.define 'gem' do
   add_filter '/spec/'
