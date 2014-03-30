@@ -42,4 +42,15 @@ describe ReverseMarkdown do
     xit { should match /\n- li 1, p 1\n\n- li 1, p 2\n/ }
   end
 
+  context 'it produces correct numbering' do
+    it { should include "1. one" }
+    it { should include "  1. one one" }
+    it { should include "  2. one two" }
+    it { should include "2. two" }
+    it { should include "  1. two one" }
+    it { should include "    1. two one one" }
+    it { should include "    2. two one two" }
+    it { should include "  2. two two" }
+    it { should include "3. three" }
+  end
 end
