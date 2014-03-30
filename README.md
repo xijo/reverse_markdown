@@ -60,12 +60,11 @@ Only basic html tags are supported right now. However, it should not be to diffi
 
 - [wmd-editor](http://wmd-editor.com) - Markdown flavored text editor
 - [markdown syntax](http://daringfireball.net/projects/markdown) - The markdown syntax specification
-- [html_massage](https://rubygems.org/gems/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown
 
 # Used for
 
-1. Convert websites into markdown: [html_massage](https://github.com/harlantwood/html_massage)
-2. Convert word documents into markdown: [word-to-markdown](https://github.com/benbalter/word-to-markdown)
+1. [html_massage](https://github.com/harlantwood/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown
+2. [word-to-markdown](https://github.com/benbalter/word-to-markdown) - Convert word docs into markdown, by Ben Balter
 
 # Thanks
 
