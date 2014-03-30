@@ -29,6 +29,30 @@ describe ReverseMarkdown::Mapper do
     end
   end
 
+  describe "#opening" do
+    let(:unknown_element) { Nokogiri::XML::Node.new('foo', document) }
+
+    describe "when handling <br> tags" do
+      it "parses <br> tags into newline characters" do
+        html = Nokogiri::HTML('<html><body><br></body></html>')
+        node = Nokogiri::XML::Node.new('br', html)
+        mapper.__send__(:opening, node).should == "  \n"
+      end
+
+      it "parses <br /> tags into newline characters" do
+        html = Nokogiri::HTML('<html><body><br /></body></html>')
+        node = Nokogiri::XML::Node.new('br', html)
+        mapper.__send__(:opening, node).should == "  \n"
+      end
+
+      it "parses <br/> tags into newline characters" do
+        html = Nokogiri::HTML('<html><body><br/></body></html>')
+        node = Nokogiri::XML::Node.new('br', html)
+        mapper.__send__(:opening, node).should == "  \n"
+      end
+    end
+  end
+
   context "error handling" do
 
     let(:unknown_element) { Nokogiri::XML::Node.new('foo', document) }
