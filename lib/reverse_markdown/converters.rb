@@ -6,7 +6,17 @@ module ReverseMarkdown
     end
 
     def self.lookup(tag_name)
-      @@converters[tag_name.to_sym] or raise "unknown tag: #{tag_name}"
+      @@converters[tag_name.to_sym] or default_converter(tag_name)
+    end
+
+    private
+
+    def self.default_converter(tag_name)
+      if ReverseMarkdown.config.ignore_unknown_tags
+        ReverseMarkdown::Converters::Dump.new
+      else
+        raise "unknown tag: #{tag_name}"
+      end
     end
   end
 end

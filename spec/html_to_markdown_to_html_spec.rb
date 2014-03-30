@@ -60,7 +60,6 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
   end
 
   it "should preserve links inside <strong> tags" do
-    pending
     roundtrip_should_preserve(%{<p><strong><a href="/wiki/Western_philosophy" title="Western philosophy">Western philosophy</a></strong></p>})
   end
 
