@@ -12,7 +12,7 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
   end
 
   def html2markdown2html(orig_html)
-    markdown = ReverseMarkdown.parse_string orig_html
+    markdown = ReverseMarkdown.convert orig_html
     new_html = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(markdown)
     new_html
   end

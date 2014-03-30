@@ -2,4 +2,4 @@
 # Usage: reverse_markdown [FILE]...
 # Usage: cat FILE | reverse_markdown
 require 'reverse_markdown'
-puts ReverseMarkdown.parse(ARGF.read)
+puts ReverseMarkdown.convert(ARGF.read)

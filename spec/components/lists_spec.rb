@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe ReverseMarkdown::Mapper do
+describe ReverseMarkdown do
 
   let(:input)    { File.read('spec/assets/lists.html') }
   let(:document) { Nokogiri::HTML(input) }
-  subject { ReverseMarkdown.parse_string(input) }
+  subject { ReverseMarkdown.convert(input) }
 
   it { should match /\n- unordered list entry\n/ }
   it { should match /\n- unordered list entry 2\n/ }
@@ -22,10 +22,10 @@ describe ReverseMarkdown::Mapper do
   end
 
   context "nested list with lots of whitespace" do
-    it { should match /\n- item wa\n/ }
-    it { should match /\n- item wb\n/ }
-    it { should match /\n {2}- item wbb\n/ }
-    it { should match /\n {2}- item wbc\n/ }
+    it { should match /\n- item wa \n/ }
+    it { should match /\n- item wb \n/ }
+    it { should match /\n  - item wbb \n/ }
+    it { should match /\n  - item wbc \n/ }
   end
 
   context "lists containing links" do
