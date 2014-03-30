@@ -15,7 +15,7 @@ module ReverseMarkdown
       if ReverseMarkdown.config.ignore_unknown_tags
         ReverseMarkdown::Converters::Dump.new
       else
-        raise "unknown tag: #{tag_name}"
+        raise UnknownTagError, "unknown tag: #{tag_name}"
       end
     end
   end

@@ -15,7 +15,7 @@ describe ReverseMarkdown do
   context 'with ignore_unknown_tags disabled' do
     before { ReverseMarkdown.config.ignore_unknown_tags = false }
 
-    it { expect { result }.to raise_error }
+    it { expect { result }.to raise_error(ReverseMarkdown::UnknownTagError) }
   end
 end
 

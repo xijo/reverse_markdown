@@ -1,3 +1,7 @@
 module ReverseMarkdown
-  class ParserError < StandardError; end
+  class Error < StandardError
+  end
+
+  class UnknownTagError < Error
+  end
 end
