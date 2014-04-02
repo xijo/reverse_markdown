@@ -47,7 +47,7 @@ module ReverseMarkdown
 
     private
 
-    def preserve_border_whitespaces(string, _options, &block)
+    def preserve_border_whitespaces(string, _options={}, &block)
       options = {
        default_border: ''
       }.merge(_options)
