@@ -47,9 +47,12 @@ module ReverseMarkdown
 
     private
 
-    def preserve_border_whitespaces(string, default_border: '', &block)
-      string_start = present_or_default(string[/\A\s*/], default_border)
-      string_end   = present_or_default(string[/\s*\Z/], default_border)
+    def preserve_border_whitespaces(string, _options={}, &block)
+      options = {
+       default_border: ''
+      }.merge(_options)
+      string_start = present_or_default(string[/\A\s*/], options[:default_border])
+      string_end   = present_or_default(string[/\s*\Z/], options[:default_border])
       result       = yield
       string_start + result + string_end
     end
