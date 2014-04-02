@@ -19,7 +19,7 @@ module ReverseMarkdown
 
       def indentation_for(node)
         length = node.ancestors('ol').size + node.ancestors('ul').size
-        '  ' * (length - 1)
+        '  ' * [length - 1, 0].max
       end
     end
 
