@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Johannes Opper"]
   s.email       = ["xijo@gmx.de"]
   s.homepage    = "http://github.com/xijo/reverse_markdown"
-  s.summary     = %q{Transform html code into markdown.}
+  s.summary     = %q{Convert html code into markdown.}
   s.description = %q{Map simple html back into markdown, e.g. if you want to import existing html data in your application.}
 
   s.rubyforge_project = "reverse_markdown"

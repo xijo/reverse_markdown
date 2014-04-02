@@ -1,73 +1,108 @@
 # Summary
 
-Transform existing html into markdown in a simple way, for example if you want to import existings tags into your markdown based application.
+Transform html into markdown. Useful for example if you want to import html into your markdown based application.
 
 [![Build Status](https://secure.travis-ci.org/xijo/reverse_markdown.png?branch=master)](https://travis-ci.org/xijo/reverse_markdown) [![Gem Version](https://badge.fury.io/rb/reverse_markdown.png)](http://badge.fury.io/rb/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown.png)](https://codeclimate.com/github/xijo/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown/coverage.png)](https://codeclimate.com/github/xijo/reverse_markdown)
 
-# Requirements
+## Migrate to 0.5.0
 
-Depends on [Nokogiri](http://nokogiri.org/).
+There were some breaking changes, please make sure you don't miss them:
 
-# Installation
+1. Only ruby versions 2.0.0 or a above are supported
+2. There is no `Mapper` class any more. Just use `ReverseMarkdown.convert(input, options)`
+3. Config option `github_style_code_blocks` changed its name to `github_flavored`
 
-Install the gem:
+Please open an issue and let me know about it if you have any trouble with the new version.
 
-  [sudo] gem install reverse_markdown
+## Requirements
 
-If you want to use it in Rails context, add it to your Gemfile:
+1. [Nokogiri](http://nokogiri.org/)
+2. Ruby 2.0.0 or higher
+
+## Installation
+
+Install the gem
+
+```sh
+[sudo] gem install reverse_markdown
+```
+
+or add it to your Gemfile
 
 ```ruby
 gem 'reverse_markdown'
 ```
 
-# Synopsis
+## Features
 
-Given you have html content as string or Nokogiri document or element just pass it over to the module like this:
+- Supports all the established html tags like `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `em`, `strong`, `i`, `b`, `blockquote`, `code`, `img`, `a`, `hr`, `li`, `ol`, `ul`, `table`, `tr`, `th`, `td`, `br`
+- Module based - if you miss a tag, just add it
+- Can deal with nested lists
+- Inline and block code is supported
+- Supports blockquote
+
+
+# Usage
+
+## Ruby
+
+You can convert html content as string or Nokogiri document:
 
 ```ruby
-ReverseMarkdown.parse content
+input  = '<strong>feelings</strong>'
+result = ReverseMarkdown.convert input
+result.inspect # " **feelings** "
 ````
 
-However, the old syntax is still supported:
+## Commandline
 
-```ruby
-ReverseMarkdown.parse_element content
-ReverseMarkdown.parse_string content
-````
-
-You can also convert html files to markdown from the command line:
+It's also possible to convert html files to markdown using the binary:
 
 ```sh
-$ reverse_markdown file.html > file.markdown
-$ cat file.html | reverse_markdown > file.markdown
+$ reverse_markdown file.html > file.md
+$ cat file.html | reverse_markdown > file.md
 ````
 
-Additionally there is a support for github-like multiline code which is indented with "`":
+## Configuration
+
+The following options are available:
+
+ - `ignore_unknown_tags` (default `true`) - bypass unknown tags instead of raising an `ReverseMarkdown::UnknownTagError`
+ - `github_flavored` (default `false`) - use [github flavored markdown](https://help.github.com/articles/github-flavored-markdown) (yet only code blocks are supported)
+
+### As options
+
+Just pass your chosen configuration options in after the input
 
 ```ruby
-ReverseMarkdown.parse_string(input, github_style_code_blocks: true)
-````
+ReverseMarkdown.convert(input, ignore_unknown_tags: false, github_flavored: true)
+```
 
-# Tag support
+### Preconfigure
 
-Only basic html tags are supported right now. However, it should not be to difficult to add some. Feel free to contribute or notify me about missing stuff.
+Or configure it block style on a initializer level
 
-- supported tags: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `em`, `strong`, `i`, `b`, `blockquote`, `code`, `img`, `a`, `hr`, `li`, `ol`, `ul`, `table`, `tr`, `th`, `td`
-- nested lists
-- inline and block code
+```ruby
+ReverseMarkdown.config do |config|
+  config.ignore_unknown_tags = false
+  config.github_flavored     = true
+end
+```
 
-# See as well
 
-- [wmd-editor](http://wmd-editor.com) - Markdown flavored text editor
+# Related stuff
+
+- [html_massage](https://github.com/harlantwood/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown using reverse_markdown
+- [word-to-markdown](https://github.com/benbalter/word-to-markdown) - Convert word docs into markdown while using reverse_markdown, by Ben Balter
 - [markdown syntax](http://daringfireball.net/projects/markdown) - The markdown syntax specification
+- [github flavored markdown](https://help.github.com/articles/github-flavored-markdown) - Githubs extension to markdown
+- [wmd-editor](http://wmd-editor.com) - Markdown flavored text editor
 
-# Used for
-
-1. [html_massage](https://github.com/harlantwood/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown
-2. [word-to-markdown](https://github.com/benbalter/word-to-markdown) - Convert word docs into markdown, by Ben Balter
 
 # Thanks
 
 ..to Ben Woosley for his improvements to the first version.
 
 ..to Harlan T. Wood for his help with the newer versions.
+
+..and all contributors
