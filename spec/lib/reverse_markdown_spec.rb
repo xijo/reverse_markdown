@@ -19,4 +19,19 @@ describe ReverseMarkdown do
   it "behaves in a sane way when root element is nil" do
     ReverseMarkdown.convert(nil).should == ''
   end
+
+  describe '#config' do
+    it 'stores a given configuration option' do
+      ReverseMarkdown.config.github_flavored = true
+      ReverseMarkdown.config.github_flavored.should be_true
+    end
+
+    it 'can be used as a block configurator as well' do
+      ReverseMarkdown.config do |config|
+        config.github_flavored.should be_false
+        config.github_flavored = true
+      end
+      ReverseMarkdown.config.github_flavored.should be_true
+    end
+  end
 end

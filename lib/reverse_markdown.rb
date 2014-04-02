@@ -45,6 +45,8 @@ module ReverseMarkdown
 
   def self.config
     @config ||= Config.new
+    yield @config if block_given?
+    @config
   end
 
   def self.cleaner
