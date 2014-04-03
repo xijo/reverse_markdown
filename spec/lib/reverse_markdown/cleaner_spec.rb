@@ -71,6 +71,12 @@ describe ReverseMarkdown::Cleaner do
       result = cleaner.clean_tag_borders(input)
       result.should eq "1 __italic__ 2 __italic__ 3 __italic__ 4"
     end
+
+    it 'cleans strikethrough stuff as well' do
+      input = "1 ~~italic ~~ 2 ~~ italic~~ 3~~italic ~~4"
+      result = cleaner.clean_tag_borders(input)
+      result.should eq "1 ~~italic~~ 2 ~~italic~~ 3 ~~italic~~ 4"
+    end
   end
 
 end
