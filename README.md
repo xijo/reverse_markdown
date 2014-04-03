@@ -4,20 +4,29 @@ Transform html into markdown. Useful for example if you want to import html into
 
 [![Build Status](https://secure.travis-ci.org/xijo/reverse_markdown.png?branch=master)](https://travis-ci.org/xijo/reverse_markdown) [![Gem Version](https://badge.fury.io/rb/reverse_markdown.png)](http://badge.fury.io/rb/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown.png)](https://codeclimate.com/github/xijo/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown/coverage.png)](https://codeclimate.com/github/xijo/reverse_markdown)
 
-## Migrate to 0.5.0
+## Changelog
+
+## 0.5.1 - April 2014
+
+1. Adds support for ruby versions 1.9.3 back in
+2. More options for handling of unknown tags
+3. Bugfixes in `li` indentation behavior
+
+## 0.5.0 - March 2014
 
 There were some breaking changes, please make sure you don't miss them:
 
-1. Only ruby versions 2.0.0 or a above are supported
+1. Only ruby versions 2.0.0 or above are supported
 2. There is no `Mapper` class any more. Just use `ReverseMarkdown.convert(input, options)`
 3. Config option `github_style_code_blocks` changed its name to `github_flavored`
 
 Please open an issue and let me know about it if you have any trouble with the new version.
 
+
 ## Requirements
 
 1. [Nokogiri](http://nokogiri.org/)
-2. Ruby 2.0.0 or higher
+2. Ruby 1.9.3 or higher
 
 ## Installation
 
