@@ -7,7 +7,7 @@ module ReverseMarkdown
         if ReverseMarkdown.config.github_flavored
           "```\n" << node.text.strip << "\n```\n"
         else
-          "\n\n    " << node.text.strip.lines.join("    ") << "\n\n"
+          "\n\n    " << node.text.strip.lines.to_a.join("    ") << "\n\n"
         end
       end
     end
