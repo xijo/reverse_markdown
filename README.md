@@ -92,6 +92,7 @@ end
 
 # Related stuff
 
+- [Write custom converters](https://github.com/xijo/reverse_markdown/wiki/Write-your-own-converter) - Wiki entry about how to write your own converter
 - [html_massage](https://github.com/harlantwood/html_massage) - A gem by Harlan T. Wood to convert regular sites into markdown using reverse_markdown
 - [word-to-markdown](https://github.com/benbalter/word-to-markdown) - Convert word docs into markdown while using reverse_markdown, by Ben Balter
 - [markdown syntax](http://daringfireball.net/projects/markdown) - The markdown syntax specification
