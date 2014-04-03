@@ -1,6 +1,6 @@
 module ReverseMarkdown
   class Config
-    attr_accessor :ignore_unknown_tags, :github_flavored
+    attr_accessor :unknown_tags, :github_flavored
 
     def initialize
       reset
@@ -13,8 +13,8 @@ module ReverseMarkdown
     end
 
     def reset
-      @ignore_unknown_tags = true
-      @github_flavored     = false
+      @unknown_tags    = :pass_through
+      @github_flavored = false
     end
   end
 end

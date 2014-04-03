@@ -67,15 +67,19 @@ $ cat file.html | reverse_markdown > file.md
 
 The following options are available:
 
- - `ignore_unknown_tags` (default `true`) - bypass unknown tags instead of raising an `ReverseMarkdown::UnknownTagError`
- - `github_flavored` (default `false`) - use [github flavored markdown](https://help.github.com/articles/github-flavored-markdown) (yet only code blocks are supported)
+- `unknown_tags` (default `pass_through`) - how to handle unknown tags. Valid options are:
+  - `pass_through` - Include the unknown tag completely into the result
+  - `drop` - Drop the unknown tag and its content
+  - `bypass` - Ignore the unknown tag but try to convert its content
+  - `raise` - Raise an error to let you know
+- `github_flavored` (default `false`) - use [github flavored markdown](https://help.github.com/articles/github-flavored-markdown) (yet only code blocks are supported)
 
 ### As options
 
 Just pass your chosen configuration options in after the input
 
 ```ruby
-ReverseMarkdown.convert(input, ignore_unknown_tags: false, github_flavored: true)
+ReverseMarkdown.convert(input, unknown_tags: :raise, github_flavored: true)
 ```
 
 ### Preconfigure

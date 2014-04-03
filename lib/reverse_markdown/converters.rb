@@ -12,10 +12,17 @@ module ReverseMarkdown
     private
 
     def self.default_converter(tag_name)
-      if ReverseMarkdown.config.ignore_unknown_tags
-        ReverseMarkdown::Converters::Dump.new
-      else
+      case ReverseMarkdown.config.unknown_tags.to_sym
+      when :pass_through
+        ReverseMarkdown::Converters::PassThrough.new
+      when :drop
+        ReverseMarkdown::Converters::Drop.new
+      when :bypass
+        ReverseMarkdown::Converters::Bypass.new
+      when :raise
         raise UnknownTagError, "unknown tag: #{tag_name}"
+      else
+        raise InvalidConfigurationError, "unknown value #{ReverseMarkdown.config.unknown_tags.inspect} for ReverseMarkdown.config.unknown_tags"
       end
     end
   end
