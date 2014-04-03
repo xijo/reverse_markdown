@@ -6,13 +6,13 @@ Transform html into markdown. Useful for example if you want to import html into
 
 ## Changelog
 
-## 0.5.1 - April 2014
+### 0.5.1 - April 2014
 
 1. Adds support for ruby versions 1.9.3 back in
 2. More options for handling of unknown tags
 3. Bugfixes in `li` indentation behavior
 
-## 0.5.0 - March 2014
+### 0.5.0 - March 2014
 
 There were some breaking changes, please make sure you don't miss them:
 
