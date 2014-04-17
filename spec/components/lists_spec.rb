@@ -53,4 +53,14 @@ describe ReverseMarkdown do
     it { should include "  2. two two" }
     it { should include "3. three" }
   end
+
+  context "a nested list with adjacent list items" do
+    it { should match /\n- alpha\n/ }
+    it { should match /\n- bravo\n/ }
+    it { should match /\n  - alpha alpha\n/ }
+    it { should match /\n  - alpha bravo\n/ }
+    it { should match /\n  - alpha bravo\n/ }
+    it { should match /\n- charlie\n/ }
+    it { should match /\n- delta\n/ }
+  end
 end
