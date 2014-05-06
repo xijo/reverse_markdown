@@ -14,11 +14,11 @@ describe ReverseMarkdown do
   it { should match /##### h5\n/ }
   it { should match /###### h6\n/ }
 
-  it { should match /_em tag content_/ }
+  it { should match /\*em tag content\*/ }
   it { should match /before and after empty em tags/ }
   it { should match /before and after em tags containing whitespace/ }
-  it { should match /_double em tags_/ }
-  it { should match /_double em tags in p tag_/ }
+  it { should match /\*double em tags\*/ }
+  it { should match /\*double em tags in p tag\*/ }
 
   it { should match /\*\*strong tag content\*\*/ }
   it { should match /before and after empty strong tags/ }
@@ -27,7 +27,7 @@ describe ReverseMarkdown do
   it { should match /\*\*double strong tags in p tag\*\*/ }
   it { should match /before \*\*double strong tags containing whitespace\*\* after/ }
 
-  it { should match /_i tag content_/ }
+  it { should match /\*i tag content\*/ }
   it { should match /\*\*b tag content\*\*/ }
 
   it { should match /br tags become double space followed by newline  \n/ }

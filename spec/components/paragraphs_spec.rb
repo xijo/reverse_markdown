@@ -8,5 +8,5 @@ describe ReverseMarkdown do
 
   it { should_not start_with "\n\n" }
   it { should start_with "First content\n\nSecond content\n\n" }
-  it { should include "\n\n_Complex_\n\n    Content" }
+  it { should include "\n\n*Complex*\n\n    Content" }
 end
