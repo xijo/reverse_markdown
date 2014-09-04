@@ -7,8 +7,9 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
 
   # helpers
 
-  def roundtrip_should_preserve(orig_html)
-    normalize_html(html2markdown2html orig_html).should == normalize_html(orig_html)
+  def roundtrip_should_preserve(input)
+    output = html2markdown2html input
+    expect(normalize_html(input)).to eq normalize_html(output)
   end
 
   def html2markdown2html(orig_html)

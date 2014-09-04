@@ -1,5 +1,9 @@
 require 'bundler/gem_tasks'
 
+if File.exist?('.codeclimate')
+  ENV["CODECLIMATE_REPO_TOKEN"] = File.read('.codeclimate').strip
+end
+
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 task :default => :spec

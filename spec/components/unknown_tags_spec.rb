@@ -9,7 +9,7 @@ describe ReverseMarkdown do
   context 'with unknown_tags = :pass_through' do
     before { ReverseMarkdown.config.unknown_tags = :pass_through }
 
-    it { result.should include "<foo><bar>Foo with bar</bar></foo>" }
+    it { expect(result).to include "<bar>Foo with bar</bar>" }
   end
 
   context 'with unknown_tags = :raise' do
@@ -21,13 +21,13 @@ describe ReverseMarkdown do
   context 'with unknown_tags = :drop' do
     before { ReverseMarkdown.config.unknown_tags = :drop }
 
-    it { result.should eq '' }
+    it { expect(result).to eq '' }
   end
 
   context 'with unknown_tags = :bypass' do
     before { ReverseMarkdown.config.unknown_tags = :bypass }
 
-    it { result.should eq "Foo with bar\n\n" }
+    it { expect(result).to eq "Foo with bar\n\n" }
   end
 
   context 'with unknown_tags = :something_wrong' do
