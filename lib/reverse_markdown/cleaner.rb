@@ -10,7 +10,7 @@ module ReverseMarkdown
     end
 
     def remove_leading_newlines(string)
-      string.gsub /\A\n\n?/, ''
+      string.gsub(/\A\n\n?/, '')
     end
 
     def remove_inner_whitespaces(string)
@@ -26,25 +26,25 @@ module ReverseMarkdown
     # in the border area.
     # Same for underscores and brackets.
     def clean_tag_borders(string)
-      result = string.gsub /\s?\*{2,}.*?\*{2,}\s?/ do |match|
+      result = string.gsub(/\s?\*{2,}.*?\*{2,}\s?/) do |match|
         preserve_border_whitespaces(match, default_border: ' ') do
           match.strip.sub('** ', '**').sub(' **', '**')
         end
       end
 
-      result = result.gsub /\s?\_{2,}.*?\_{2,}\s?/ do |match|
+      result = result.gsub(/\s?\_{2,}.*?\_{2,}\s?/) do |match|
         preserve_border_whitespaces(match, default_border: ' ') do
           match.strip.sub('__ ', '__').sub(' __', '__')
         end
       end
 
-      result = result.gsub /\s?~{2,}.*?~{2,}\s?/ do |match|
+      result = result.gsub(/\s?~{2,}.*?~{2,}\s?/) do |match|
         preserve_border_whitespaces(match, default_border: ' ') do
           match.strip.sub('~~ ', '~~').sub(' ~~', '~~')
         end
       end
 
-      result.gsub /\s?\[.*?\]\s?/ do |match|
+      result.gsub(/\s?\[.*?\]\s?/) do |match|
         preserve_border_whitespaces(match) do
           match.strip.sub('[ ', '[').sub(' ]', ']')
         end

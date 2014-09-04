@@ -5,3 +5,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Ignore `col` and `colgroup` tags
 - Bypass `thead` and `tbody` tags to show the tables correctly
+
+### Changed
+- Eliminate ruby warnings on load (thx @vsipuli)
