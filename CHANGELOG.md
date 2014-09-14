@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## preparing - September 2014
+## 0.6.0 - September 2014
 ### Added
 - Ignore `col` and `colgroup` tags
 - Bypass `thead` and `tbody` tags to show the tables correctly
