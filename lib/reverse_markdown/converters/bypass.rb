@@ -10,5 +10,7 @@ module ReverseMarkdown
     register :html,     Bypass.new
     register :body,     Bypass.new
     register :span,     Bypass.new
+    register :thead,    Bypass.new
+    register :tbody,    Bypass.new
   end
 end

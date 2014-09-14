@@ -14,8 +14,6 @@ SimpleCov.start 'gem'
 require 'reverse_markdown'
 
 RSpec.configure do |config|
-  config.color_enabled = true
-
   config.after(:each) do
     ReverseMarkdown.config.reset
   end

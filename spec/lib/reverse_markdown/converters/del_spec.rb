@@ -8,17 +8,17 @@ describe ReverseMarkdown::Converters::Del do
 
     it 'converts the input as expected' do
       input = Nokogiri::XML.parse('<del>deldeldel</del>').root
-      converter.convert(input).should eq '~~deldeldel~~'
+      expect(converter.convert(input)).to eq '~~deldeldel~~'
     end
 
     it 'skips empty tags' do
       input = Nokogiri::XML.parse('<del></del>').root
-      converter.convert(input).should eq ''
+      expect(converter.convert(input)).to eq ''
     end
 
     it 'knows about its enabled/disabled state' do
-      converter.should be_enabled
-      converter.should_not be_disabled
+      expect(converter).to be_enabled
+      expect(converter).not_to be_disabled
     end
   end
 
@@ -27,12 +27,12 @@ describe ReverseMarkdown::Converters::Del do
 
     it 'does not convert anything' do
       input = Nokogiri::XML.parse('<del>deldeldel</del>').root
-      converter.convert(input).should eq 'deldeldel'
+      expect(converter.convert(input)).to eq 'deldeldel'
     end
 
     it 'knows about its enabled/disabled state' do
-      converter.should_not be_enabled
-      converter.should be_disabled
+      expect(converter).not_to be_enabled
+      expect(converter).to be_disabled
     end
   end
 end
