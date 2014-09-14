@@ -7,7 +7,7 @@ describe ReverseMarkdown do
   subject { ReverseMarkdown.convert(input) }
 
   it "should make sense of strong-crazy markup (as seen in the wild)" do
-    expect(subject).to eq '** .' + "  \n" +
+    expect(subject).to eq '**.' + "  \n" +
       ' \*\*\* intentcast ** : logo design' + "   \n" +
       "**.**\n\n"
   end

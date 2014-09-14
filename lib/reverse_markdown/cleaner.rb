@@ -2,7 +2,11 @@ module ReverseMarkdown
   class Cleaner
 
     def tidy(string)
-      clean_tag_borders(remove_leading_newlines(remove_newlines(remove_inner_whitespaces(string))))
+      result = remove_inner_whitespaces(string)
+      result = remove_newlines(result)
+      result = remove_leading_newlines(result)
+      result = clean_tag_borders(result)
+      clean_punctuation_characters(result)
     end
 
     def remove_newlines(string)
@@ -10,7 +14,7 @@ module ReverseMarkdown
     end
 
     def remove_leading_newlines(string)
-      string.gsub(/\A\n\n?/, '')
+      string.gsub(/\A\n+/, '')
     end
 
     def remove_inner_whitespaces(string)
@@ -22,7 +26,7 @@ module ReverseMarkdown
     end
 
     # Find non-asterisk content that is enclosed by two or
-    # more asterisks. Ensure that only one whitespace occur
+    # more asterisks. Ensure that only one whitespace occurs
     # in the border area.
     # Same for underscores and brackets.
     def clean_tag_borders(string)
@@ -49,6 +53,10 @@ module ReverseMarkdown
           match.strip.sub('[ ', '[').sub(' ]', ']')
         end
       end
+    end
+
+    def clean_punctuation_characters(string)
+      string.gsub(/(\*\*|~~|__)\s([\.!\?'"])/, "\\1".strip + "\\2")
     end
 
     private

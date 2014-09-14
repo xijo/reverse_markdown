@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Eliminate ruby warnings on load (thx @vsipuli)
 - Treat newlines within text nodes as space
+- Remove whitespace between inline tags and punctuation characters
 
 
 ## 0.5.1 - April 2014

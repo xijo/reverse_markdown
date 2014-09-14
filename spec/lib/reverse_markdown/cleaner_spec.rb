@@ -47,6 +47,14 @@ describe ReverseMarkdown::Cleaner do
     end
   end
 
+  describe '#clean_punctuation_characters' do
+    it 'removes whitespace between tag end and punctuation characters' do
+      input = "**fat** . ~~strike~~ ? __italic__ ! "
+      result = cleaner.clean_punctuation_characters(input)
+      expect(result).to eq "**fat**. ~~strike~~? __italic__! "
+    end
+  end
+
   describe '#clean_tag_borders' do
     it 'removes not needed whitespaces from strong tags' do
       input = "foo ** foobar ** bar"
