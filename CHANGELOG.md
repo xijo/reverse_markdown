@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Eliminate ruby warnings on load (thx @vsipuli)
+- Treat newlines within text nodes as space
 
 
 ## 0.5.1 - April 2014
