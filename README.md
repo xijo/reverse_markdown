@@ -82,8 +82,8 @@ Or configure it block style on a initializer level
 
 ```ruby
 ReverseMarkdown.config do |config|
-  config.ignore_unknown_tags = false
-  config.github_flavored     = true
+  config.unknown_tags     = :bypass
+  config.github_flavored  = true
 end
 ```
 
