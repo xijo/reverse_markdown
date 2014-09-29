@@ -2,7 +2,8 @@ module ReverseMarkdown
   class Cleaner
 
     def tidy(string)
-      result = remove_inner_whitespaces(string)
+      result = preserve_trailing_nbsp(string)
+      result = remove_inner_whitespaces(result)
       result = remove_newlines(result)
       result = remove_leading_newlines(result)
       result = clean_tag_borders(result)
@@ -57,6 +58,12 @@ module ReverseMarkdown
 
     def clean_punctuation_characters(string)
       string.gsub(/(\*\*|~~|__)\s([\.!\?'"])/, "\\1".strip + "\\2")
+    end
+
+    # Make sure non breaking spaces that borders up to
+    # emphasis will be preserved. 
+    def preserve_trailing_nbsp(string)
+      string.gsub(/\u00a0((\*|~|_){1,2})/, "&nbsp;\\1")
     end
 
     private
