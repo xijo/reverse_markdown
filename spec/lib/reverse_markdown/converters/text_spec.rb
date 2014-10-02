@@ -22,4 +22,10 @@ describe ReverseMarkdown::Converters::Text do
     expect(result).to eq 'foo bar'
   end
 
+  it 'keeps nbsps' do
+    input = Nokogiri::XML.parse("<p>foo\u00A0bar \u00A0</p>").root
+    result = converter.convert(input)
+    expect(result).to eq "foo&nbsp;bar &nbsp;"
+  end
+
 end

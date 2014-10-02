@@ -23,9 +23,15 @@ module ReverseMarkdown
       end
 
       def treat_text(node)
-        text = remove_border_newlines(node.text)
+        text = node.text
+        text = preserve_nbsp(text)
+        text = remove_border_newlines(text)
         text = remove_inner_newlines(text)
         escape_keychars text
+      end
+
+      def preserve_nbsp(text)
+        text.gsub(/\u00A0/, "&nbsp;")
       end
 
       def remove_border_newlines(text)
