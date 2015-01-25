@@ -70,7 +70,7 @@ The following options are available:
 
 ### As options
 
-Just pass your chosen configuration options in after the input
+Just pass your chosen configuration options in after the input. The given options will last for this operation only.
 
 ```ruby
 ReverseMarkdown.convert(input, unknown_tags: :raise, github_flavored: true)
@@ -78,7 +78,7 @@ ReverseMarkdown.convert(input, unknown_tags: :raise, github_flavored: true)
 
 ### Preconfigure
 
-Or configure it block style on a initializer level
+Or configure it block style on a initializer level. These configurations will last for all conversions until they are set to something different.
 
 ```ruby
 ReverseMarkdown.config do |config|
