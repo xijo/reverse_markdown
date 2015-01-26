@@ -12,6 +12,13 @@ module ReverseMarkdown
       end
       private
       def lang(node)
+        brush = ""
+        unless node['class'].to_s.empty?
+          case
+            when x
+          end
+        end
+        return brush
       end
     end
 
