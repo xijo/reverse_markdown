@@ -23,5 +23,9 @@ module ReverseMarkdown
     def github_flavored
       @inline_options[:github_flavored] || @github_flavored
     end
+
+    def syntax_highlight
+      @inline_options[:syntax_highlight] || @syntax_highlight
+    end
   end
 end
