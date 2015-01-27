@@ -6,7 +6,7 @@ module ReverseMarkdown
     end
 
     def self.lookup(type)
-      @@highlihters[type.to_sym] or ReverseMarkdown::Highlighters::Plain.new
+      @@highlihters[type.to_sym] or ReverseMarkdown::Highlighters::Dobell.new
     end
   end
 end
