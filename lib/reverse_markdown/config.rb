@@ -15,7 +15,7 @@ module ReverseMarkdown
     def reset
       @unknown_tags    = :pass_through
       @github_flavored = false
-      @syntax_highlight = :text
+      @syntax_highlight = :plain
     end
   end
 end

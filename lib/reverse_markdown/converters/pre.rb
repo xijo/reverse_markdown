@@ -12,13 +12,7 @@ module ReverseMarkdown
       end
       private
       def lang(node)
-        brush = ""
-        unless node['class'].to_s.empty?
-          case
-            when x
-          end
-        end
-        return brush
+        ReverseMarkdown::Highlighters.lookup(ReverseMarkdown.config.syntax_highlight).highlight(node)
       end
     end
 
