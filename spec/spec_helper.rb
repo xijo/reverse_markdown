@@ -18,3 +18,7 @@ RSpec.configure do |config|
     ReverseMarkdown.instance_variable_set(:@config, nil)
   end
 end
+
+def node_for(html)
+  Nokogiri::XML.parse(html).root
+end
