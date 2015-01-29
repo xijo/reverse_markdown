@@ -1,5 +1,3 @@
-require 'base64'
-
 module ReverseMarkdown
   module Converters
     class Pre < Base

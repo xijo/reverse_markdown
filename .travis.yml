@@ -10,4 +10,4 @@ script: "bundle exec rake spec"
 notifications:
   disabled: false
   recipients:
-    - xijo@gmx.de
+    - johannes.opper@gmail.com
