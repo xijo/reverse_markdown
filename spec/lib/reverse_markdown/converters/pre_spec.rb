@@ -29,9 +29,13 @@ describe ReverseMarkdown::Converters::Pre do
       node = node_for("<pre>puts foo</pre>")
       expect(converter.convert(node)).to include "```\nputs foo\n```"
     end
-    it 'includes the given highlight language' do
+    it 'includes the given highlight language dobell waty' do
       node = node_for("<div class='highlight highlight-ruby'><pre>puts foo</pre></div>")
       expect(converter.convert(node.children.first)).to include "```ruby\n"
+    end
+    it 'includes the given highlight language confluence way' do
+      node = node_for("<pre class=\"theme: Confluence; brush: php; gutter: false\">echo 'foo'</pre>")
+      expect(converter.convert(node)).to include "```\necho 'foo'\n```"
     end
   end
   context 'for github_flavored markdown confluence' do
@@ -43,6 +47,10 @@ describe ReverseMarkdown::Converters::Pre do
     it 'includes the given highlight language confluence way' do
       node = node_for("<pre class=\"theme: Confluence; brush: php; gutter: false\">echo 'foo'</pre>")
       expect(converter.convert(node)).to include "```php\n"
+    end
+    it 'includes the given highlight language dobell way' do
+      node = node_for("<div class='highlight highlight-ruby'><pre>puts foo</pre></div>")
+      expect(converter.convert(node.children.first)).to include "```\nputs foo\n```"
     end
   end
 end
