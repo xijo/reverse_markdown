@@ -29,6 +29,11 @@ require 'reverse_markdown/converters/table'
 require 'reverse_markdown/converters/td'
 require 'reverse_markdown/converters/text'
 require 'reverse_markdown/converters/tr'
+require 'reverse_markdown/highlighters'
+require 'reverse_markdown/highlighters/base'
+require 'reverse_markdown/highlighters/confluence'
+require 'reverse_markdown/highlighters/dobell'
+require 'reverse_markdown/highlighters/plain'
 
 module ReverseMarkdown
 
