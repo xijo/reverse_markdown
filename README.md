@@ -100,8 +100,11 @@ end
 
 # Thanks
 
-..to Ben Woosley for his improvements to the first version.
+Thanks to all [contributors](https://github.com/xijo/reverse_markdown/graphs/contributors) and all other helpers:
 
-..to Harlan T. Wood for his help with the newer versions.
-
-..and all contributors
+- [Empact](https://github.com/Empact) Ben Woosley
+- [harlantwood](https://github.com/harlantwood) Harlan T. Wood
+- [aprescott](https://github.com/aprescott) Adam Prescott
+- [danschultzer](https://github.com/danschultzer) Dan Schultzer
+- [Benjamin-Dobell](https://github.com/Benjamin-Dobell) Benjamin Dobell
+- [schkovich](https://github.com/schkovich) Goran Miskovic
