@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.7.0 - February 2015
+### Added
+- pre-tags support syntax github and confluence syntax highlighting now
+
 ## 0.6.1 - January 2015
 ### Changed
 - Setting config options in block style will last for all following `convert` calls.
