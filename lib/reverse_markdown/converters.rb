@@ -5,6 +5,10 @@ module ReverseMarkdown
       @@converters[tag_name.to_sym] = converter
     end
 
+    def self.unregister(tag_name)
+      @@converters.delete(tag_name.to_sym)
+    end
+
     def self.lookup(tag_name)
       @@converters[tag_name.to_sym] or default_converter(tag_name)
     end
