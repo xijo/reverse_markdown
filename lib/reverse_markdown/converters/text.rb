@@ -27,7 +27,9 @@ module ReverseMarkdown
         text = preserve_nbsp(text)
         text = remove_border_newlines(text)
         text = remove_inner_newlines(text)
-        escape_keychars text
+        text = escape_keychars(text)
+
+        preserve_keychars_within_backticks(text)
       end
 
       def preserve_nbsp(text)
@@ -40,6 +42,12 @@ module ReverseMarkdown
 
       def remove_inner_newlines(text)
         text.tr("\n\t", ' ').squeeze(' ')
+      end
+
+      def preserve_keychars_within_backticks(text)
+        text.gsub(/`.*?`/) do |match|
+          match.gsub('\_', '_').gsub('\*', '*')
+        end
       end
     end
 
