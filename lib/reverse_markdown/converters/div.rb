@@ -6,6 +6,7 @@ module ReverseMarkdown
       end
     end
 
-    register :div, Div.new
+    register :div,     Div.new
+    register :article, Div.new
   end
 end
