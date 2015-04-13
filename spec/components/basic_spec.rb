@@ -19,6 +19,8 @@ describe ReverseMarkdown do
   it { should match /before and after em tags containing whitespace/ }
   it { should match /_double em tags_/ }
   it { should match /_double em tags in p tag_/ }
+  it { should match /_em with leading and trailing_ whitespace/ }
+  it { should match /_em with extra leading and trailing_ whitespace/ }
 
   it { should match /\*\*strong tag content\*\*/ }
   it { should match /before and after empty strong tags/ }
@@ -26,6 +28,8 @@ describe ReverseMarkdown do
   it { should match /\*\*double strong tags\*\*/ }
   it { should match /\*\*double strong tags in p tag\*\*/ }
   it { should match /before \*\*double strong tags containing whitespace\*\* after/ }
+  it { should match /\*\*strong with leading and trailing\*\* whitespace/ }
+  it { should match /\*\*strong with extra leading and trailing\*\* whitespace/ }
 
   it { should match /_i tag content_/ }
   it { should match /\*\*b tag content\*\*/ }
