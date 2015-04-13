@@ -6,7 +6,7 @@ module ReverseMarkdown
         if content.strip.empty? || already_strong?(node)
           content
         else
-          "#{content.match(/^\s*/)[0]}**#{content.strip}**#{content.match(/\s*$/)[0]}"
+          "#{content[/^\s*/]}**#{content.strip}**#{content[/\s*$/]}"
         end
       end
 
