@@ -28,4 +28,29 @@ describe ReverseMarkdown::Converters::Text do
     expect(result).to eq "foo&nbsp;bar &nbsp;"
   end
 
+  context 'within backticks' do
+    it "preserves single underscores" do
+      input = node_for("<p>`foo_bar`</p>")
+      result = converter.convert(input)
+      expect(result).to eq '`foo_bar`'
+    end
+
+    it "preserves multiple underscores" do
+      input = node_for("<p>`foo_bar __example__`</p>")
+      result = converter.convert(input)
+      expect(result).to eq '`foo_bar __example__`'
+    end
+
+    it "preserves single asterisks" do
+      input = node_for("<p>`def foo *args`</p>")
+      result = converter.convert(input)
+      expect(result).to eq '`def foo *args`'
+    end
+
+    it "preserves multiple asterisks" do
+      input = node_for("<p>`def foo 2***3`</p>")
+      result = converter.convert(input)
+      expect(result).to eq '`def foo 2***3`'
+    end
+  end
 end
