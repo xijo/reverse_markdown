@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.8.0 - April 2015
+### Added
+- `article` tag is now supported and treated like a div
+
+### Changed
+- Special characters are treated correctly inside of backticks, see (#47)
+
 ## 0.7.0 - February 2015
 ### Added
 - pre-tags support syntax github and confluence syntax highlighting now
