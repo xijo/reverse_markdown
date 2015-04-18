@@ -6,6 +6,6 @@ describe ReverseMarkdown do
   let(:document) { Nokogiri::HTML(input) }
   subject { ReverseMarkdown.convert(input) }
 
-  it { should == "naked text 1\n\nparagraph text\n\nnaked text 2" }
+  it { is_expected.to eq("naked text 1\n\nparagraph text\n\nnaked text 2") }
 end
 

@@ -6,7 +6,7 @@ describe ReverseMarkdown do
   let(:document) { Nokogiri::HTML(input) }
   subject { ReverseMarkdown.convert(input) }
 
-  it { should match /^    Block of code$/ }
-  it { should include "\n> First quoted paragraph\n> \n> Second quoted paragraph" }
+  it { is_expected.to match /^    Block of code$/ }
+  it { is_expected.to include "\n> First quoted paragraph\n> \n> Second quoted paragraph" }
 
 end
