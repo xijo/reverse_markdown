@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.8.1 - April 2015
+### Changes
+- Don't add newlines after nested lists
+
 ## 0.8.0 - April 2015
 ### Added
 - `article` tag is now supported and treated like a div
