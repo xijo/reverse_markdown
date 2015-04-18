@@ -7,12 +7,12 @@ describe ReverseMarkdown::Converters::Del do
     before { ReverseMarkdown.config.github_flavored = true }
 
     it 'converts the input as expected' do
-      input = Nokogiri::XML.parse('<del>deldeldel</del>').root
+      input = node_for('<del>deldeldel</del>')
       expect(converter.convert(input)).to eq '~~deldeldel~~'
     end
 
     it 'skips empty tags' do
-      input = Nokogiri::XML.parse('<del></del>').root
+      input = node_for('<del></del>')
       expect(converter.convert(input)).to eq ''
     end
 
@@ -26,7 +26,7 @@ describe ReverseMarkdown::Converters::Del do
     before { ReverseMarkdown.config.github_flavored = false }
 
     it 'does not convert anything' do
-      input = Nokogiri::XML.parse('<del>deldeldel</del>').root
+      input = node_for('<del>deldeldel</del>')
       expect(converter.convert(input)).to eq 'deldeldel'
     end
 

@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "reverse_markdown"
   s.version     = ReverseMarkdown::VERSION
   s.authors     = ["Johannes Opper"]
-  s.email       = ["xijo@gmx.de"]
+  s.email       = ["johannes.opper@gmail.com"]
   s.homepage    = "http://github.com/xijo/reverse_markdown"
   s.summary     = %q{Convert html code into markdown.}
   s.description = %q{Map simple html back into markdown, e.g. if you want to import existing html data in your application.}

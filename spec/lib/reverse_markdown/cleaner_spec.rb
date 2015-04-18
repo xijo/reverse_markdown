@@ -45,6 +45,11 @@ describe ReverseMarkdown::Cleaner do
       result = cleaner.remove_inner_whitespaces("foo\t \tbar")
       expect(result).to eq "foo bar"
     end
+
+    it 'keeps lines that only contain whitespace' do
+      result = cleaner.remove_inner_whitespaces("foo \nbar \n \n  \nfoo")
+      expect(result).to eq "foo \nbar \n \n  \nfoo"
+    end
   end
 
   describe '#clean_punctuation_characters' do

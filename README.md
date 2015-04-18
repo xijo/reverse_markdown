@@ -70,7 +70,7 @@ The following options are available:
 
 ### As options
 
-Just pass your chosen configuration options in after the input
+Just pass your chosen configuration options in after the input. The given options will last for this operation only.
 
 ```ruby
 ReverseMarkdown.convert(input, unknown_tags: :raise, github_flavored: true)
@@ -78,7 +78,7 @@ ReverseMarkdown.convert(input, unknown_tags: :raise, github_flavored: true)
 
 ### Preconfigure
 
-Or configure it block style on a initializer level
+Or configure it block style on a initializer level. These configurations will last for all conversions until they are set to something different.
 
 ```ruby
 ReverseMarkdown.config do |config|
@@ -100,8 +100,11 @@ end
 
 # Thanks
 
-..to Ben Woosley for his improvements to the first version.
+Thanks to all [contributors](https://github.com/xijo/reverse_markdown/graphs/contributors) and all other helpers:
 
-..to Harlan T. Wood for his help with the newer versions.
-
-..and all contributors
+- [Empact](https://github.com/Empact) Ben Woosley
+- [harlantwood](https://github.com/harlantwood) Harlan T. Wood
+- [aprescott](https://github.com/aprescott) Adam Prescott
+- [danschultzer](https://github.com/danschultzer) Dan Schultzer
+- [Benjamin-Dobell](https://github.com/Benjamin-Dobell) Benjamin Dobell
+- [schkovich](https://github.com/schkovich) Goran Miskovic

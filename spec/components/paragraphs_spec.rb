@@ -6,10 +6,10 @@ describe ReverseMarkdown do
   let(:document) { Nokogiri::HTML(input) }
   subject { ReverseMarkdown.convert(input) }
 
-  it { should_not start_with "\n\n" }
-  it { should start_with "First content\n\nSecond content\n\n" }
-  it { should include "\n\n_Complex_\n\n    Content" }
-  it { should include "**Trailing whitespace:**" }
-  it { should include "**Trailing non-breaking space:&nbsp;**" }
-  it { should include "**_Combination:&nbsp;_**" }
+  it { is_expected.not_to start_with "\n\n" }
+  it { is_expected.to start_with "First content\n\nSecond content\n\n" }
+  it { is_expected.to include "\n\n_Complex_\n\n    Content" }
+  it { is_expected.to include "**Trailing whitespace:**" }
+  it { is_expected.to include "**Trailing non-breaking space:&nbsp;**" }
+  it { is_expected.to include "**_Combination:&nbsp;_**" }
 end
