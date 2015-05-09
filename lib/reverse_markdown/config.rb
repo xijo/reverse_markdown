@@ -3,9 +3,11 @@ module ReverseMarkdown
     attr_accessor :unknown_tags, :github_flavored
 
     def initialize
-      @unknown_tags    = :pass_through
-      @github_flavored = false
-      @inline_options = {}
+      @unknown_tags     = :pass_through
+      @github_flavored  = false
+      @em_delimiter     = '_'
+      @strong_delimiter = '**'
+      @inline_options   = {}
     end
 
     def with(options = {})

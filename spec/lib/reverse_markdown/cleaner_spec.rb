@@ -80,9 +80,15 @@ describe ReverseMarkdown::Cleaner do
     end
 
     it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
-      input = "[![tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)"
+      input = "![im__age](sou__rce)"
       result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "[![tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)"
+      expect(result).to eq "![im__age](sou__rce)"
+    end
+
+    it "still cleans up whitespaces that aren't inside a link" do
+      input = "now __italic __with following [under__scored](link)"
+      result = cleaner.clean_tag_borders(input)
+      expect(result).to eq "now __italic__ with following [under__scored](link)"
     end
 
     it 'cleans italic stuff as well' do
