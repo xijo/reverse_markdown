@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.8.2 - May 2015
+### Changes
+- Don't add whitespaces in links and images if they contain underscores
+
 ## 0.8.1 - April 2015
 ### Changes
 - Don't add newlines after nested lists
