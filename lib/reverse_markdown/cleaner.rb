@@ -63,7 +63,9 @@ module ReverseMarkdown
 
     def preserve_border_whitespaces(string, options = {}, &block)
       return string if string =~ /\A\s*\Z/
-      default_border = options.fetch(:default_border, '')
+      # If the string contains part of a link so the characters [,],(,)
+      # then don't add any extra spaces
+      default_border = string =~ /[\[\(\]\)]/ ? '' : options.fetch(:default_border, '')
       string_start   = present_or_default(string[/\A\s*/], default_border)
       string_end     = present_or_default(string[/\s*\Z/], default_border)
       result         = yield

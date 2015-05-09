@@ -79,6 +79,12 @@ describe ReverseMarkdown::Cleaner do
       expect(result).to eq "1 **fat** 2"
     end
 
+    it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
+      input = "[![tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)"
+      result = cleaner.clean_tag_borders(input)
+      expect(result).to eq "[![tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)](http://blog.99.co/wp-content/uploads/2014/04/tohoku_earthquake_tsunami_japan.jpg__1072x0_q85_upscale.jpg)"
+    end
+
     it 'cleans italic stuff as well' do
       input = "1 __italic __ 2 __ italic__ 3__italic __4"
       result = cleaner.clean_tag_borders(input)
