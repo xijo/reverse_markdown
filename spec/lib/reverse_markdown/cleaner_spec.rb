@@ -79,6 +79,18 @@ describe ReverseMarkdown::Cleaner do
       expect(result).to eq "1 **fat** 2"
     end
 
+    it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
+      input = "![im__age](sou__rce)"
+      result = cleaner.clean_tag_borders(input)
+      expect(result).to eq "![im__age](sou__rce)"
+    end
+
+    it "still cleans up whitespaces that aren't inside a link" do
+      input = "now __italic __with following [under__scored](link)"
+      result = cleaner.clean_tag_borders(input)
+      expect(result).to eq "now __italic__ with following [under__scored](link)"
+    end
+
     it 'cleans italic stuff as well' do
       input = "1 __italic __ 2 __ italic__ 3__italic __4"
       result = cleaner.clean_tag_borders(input)
