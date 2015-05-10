@@ -11,7 +11,7 @@ module ReverseMarkdown
       end
 
       def already_italic?(node)
-        node.ancestors('italic').size > 0 || node.ancestors('em').size > 0
+        node.ancestors('i').size > 0 || node.ancestors('em').size > 0
       end
     end
 
