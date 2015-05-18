@@ -19,8 +19,8 @@ describe ReverseMarkdown do
   it { is_expected.to match /before and after em tags containing whitespace/ }
   it { is_expected.to match /_double em tags_/ }
   it { is_expected.to match /_double em tags in p tag_/ }
-  it { is_expected.to match /_em with leading and trailing_ whitespace/ }
-  it { is_expected.to match /_em with extra leading and trailing_ whitespace/ }
+  it { is_expected.to match /a _em with leading and trailing_ whitespace/ }
+  it { is_expected.to match /a _em with extra leading and trailing_ whitespace/ }
 
   it { is_expected.to match /\*\*strong tag content\*\*/ }
   it { is_expected.to match /before and after empty strong tags/ }
@@ -28,8 +28,8 @@ describe ReverseMarkdown do
   it { is_expected.to match /\*\*double strong tags\*\*/ }
   it { is_expected.to match /\*\*double strong tags in p tag\*\*/ }
   it { is_expected.to match /before \*\*double strong tags containing whitespace\*\* after/ }
-  it { is_expected.to match /\*\*strong with leading and trailing\*\* whitespace/ }
-  it { is_expected.to match /\*\*strong with extra leading and trailing\*\* whitespace/ }
+  it { is_expected.to match /a \*\*strong with leading and trailing\*\* whitespace/ }
+  it { is_expected.to match /a \*\*strong with extra leading and trailing\*\* whitespace/ }
 
   it { is_expected.to match /_i tag content_/ }
   it { is_expected.to match /\*\*b tag content\*\*/ }

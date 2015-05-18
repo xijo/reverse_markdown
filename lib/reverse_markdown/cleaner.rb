@@ -31,19 +31,19 @@ module ReverseMarkdown
     # Same for underscores and brackets.
     def clean_tag_borders(string)
       result = string.gsub(/\s?\*{2,}.*?\*{2,}\s?/) do |match|
-        preserve_border_whitespaces(match, default_border: ' ') do
+        preserve_border_whitespaces(match, default_border: ReverseMarkdown.config.default_borders) do
           match.strip.sub('** ', '**').sub(' **', '**')
         end
       end
 
       result = result.gsub(/\s?\_{2,}.*?\_{2,}\s?/) do |match|
-        preserve_border_whitespaces(match, default_border: ' ') do
+        preserve_border_whitespaces(match, default_border: ReverseMarkdown.config.default_borders) do
           match.strip.sub('__ ', '__').sub(' __', '__')
         end
       end
 
       result = result.gsub(/\s?~{2,}.*?~{2,}\s?/) do |match|
-        preserve_border_whitespaces(match, default_border: ' ') do
+        preserve_border_whitespaces(match, default_border: ReverseMarkdown.config.default_borders) do
           match.strip.sub('~~ ', '~~').sub(' ~~', '~~')
         end
       end
