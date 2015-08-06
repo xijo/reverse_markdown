@@ -4,7 +4,8 @@
     <a href="http://foobar.com">Foobar</a>
     <a href="http://foobar.com" title="f***** up beyond all recognition">Fubar</a>
     <a href="http://strong.foobar.com"><strong>Strong foobar</strong></a>
-    Period after the anchor: there shouldn't be an extra space after the <a href="http://foobar.com">anchor</a>. But inline, <a href="http://foobar.com">there</a> should be a space.
+    There should be no extra space before and after the anchor (<a href="http://foobar.com">stripped</a>).
+    Exception: after an !<a href="http://not.an.image.foobar.com">there</a> should be an extra space.
 
     ignore <a href="foo.html">   </a> anchor tags with no link text
     not ignore <a href="foo.html"><img src="image.png" alt="An Image" /></a> anchor tags with images

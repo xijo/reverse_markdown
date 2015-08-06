@@ -9,7 +9,9 @@ module ReverseMarkdown
         if href.to_s.start_with?('#') || href.to_s.empty? || name.empty?
           name
         else
-          " [#{name}](#{href}#{title})"
+          link = "[#{name}](#{href}#{title})"
+          link.prepend(' ') if node.previous_sibling.to_s.end_with?('!')
+          link
         end
       end
     end
