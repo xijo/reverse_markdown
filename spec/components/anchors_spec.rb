@@ -15,6 +15,7 @@ describe ReverseMarkdown do
   it { is_expected.to include ' ![foobar image 2](http://foobar.com/foobar2.png "this is the foobar image 2") ' }
   it { is_expected.to include 'no extra space before and after the anchor ([stripped](http://foobar.com)).'}
   it { is_expected.to include 'after an ! [there](http://not.an.image.foobar.com) should be an extra space.'}
+  it { is_expected.to include 'with stripped elements inbetween: ! [there](http://still.not.an.image.foobar.com) should be an extra space.'}
 
   context "links to ignore" do
     it { is_expected.to include ' ignore anchor tags with no link text ' }

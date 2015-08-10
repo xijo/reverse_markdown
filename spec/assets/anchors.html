@@ -6,6 +6,7 @@
     <a href="http://strong.foobar.com"><strong>Strong foobar</strong></a>
     There should be no extra space before and after the anchor (<a href="http://foobar.com">stripped</a>).
     Exception: after an !<a href="http://not.an.image.foobar.com">there</a> should be an extra space.
+    Even with stripped elements inbetween: !<span><a href="http://still.not.an.image.foobar.com">there</a></span> should be an extra space.
 
     ignore <a href="foo.html">   </a> anchor tags with no link text
     not ignore <a href="foo.html"><img src="image.png" alt="An Image" /></a> anchor tags with images
