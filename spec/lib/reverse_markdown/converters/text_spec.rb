@@ -28,6 +28,12 @@ describe ReverseMarkdown::Converters::Text do
     expect(result).to eq "foo&nbsp;bar &nbsp;"
   end
 
+  it 'keeps escaped HTML-ish characters' do
+    input = node_for("<p>&lt;foo&gt;</p>")
+    result = converter.convert(input)
+    expect(result).to eq '\<foo\>'
+  end
+
   context 'within backticks' do
     it "preserves single underscores" do
       input = node_for("<p>`foo_bar`</p>")
