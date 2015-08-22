@@ -29,11 +29,18 @@ module ReverseMarkdown
         text = remove_inner_newlines(text)
         text = escape_keychars(text)
 
-        preserve_keychars_within_backticks(text)
+        text = preserve_keychars_within_backticks(text)
+        text = preserve_tags(text)
+        
+        text
       end
 
       def preserve_nbsp(text)
         text.gsub(/\u00A0/, "&nbsp;")
+      end
+      
+      def preserve_tags(text)
+        text.gsub(/[<>]/, '>' => '\>', '<' => '\<')
       end
 
       def remove_border_newlines(text)
