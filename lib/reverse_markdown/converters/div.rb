@@ -1,8 +1,8 @@
 module ReverseMarkdown
   module Converters
     class Div < Base
-      def convert(node)
-        "\n" << treat_children(node) << "\n"
+      def convert(node, state = {})
+        "\n" << treat_children(node, state) << "\n"
       end
     end
 

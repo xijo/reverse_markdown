@@ -1,9 +1,9 @@
 module ReverseMarkdown
   module Converters
     class Del < Base
-      def convert(node)
-        content = treat_children(node)
-        if disabled? || content.strip.empty? || already_crossed_out?(node)
+      def convert(node, state = {})
+        content = treat_children(node, state.merge(already_crossed_out: true))
+        if disabled? || content.strip.empty? || state[:already_crossed_out]
           content
         else
           "~~#{content}~~"
@@ -16,10 +16,6 @@ module ReverseMarkdown
 
       def disabled?
         !enabled?
-      end
-
-      def already_crossed_out?(node)
-        node.ancestors('del').size > 0 || node.ancestors('strike').size > 0
       end
     end
 

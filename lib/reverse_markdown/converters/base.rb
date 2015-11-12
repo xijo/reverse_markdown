@@ -1,14 +1,14 @@
 module ReverseMarkdown
   module Converters
     class Base
-      def treat_children(node)
+      def treat_children(node, state)
         node.children.inject('') do |memo, child|
-          memo << treat(child)
+          memo << treat(child, state)
         end
       end
 
-      def treat(node)
-        ReverseMarkdown::Converters.lookup(node.name).convert(node)
+      def treat(node, state)
+        ReverseMarkdown::Converters.lookup(node.name).convert(node, state)
       end
 
       def escape_keychars(string)

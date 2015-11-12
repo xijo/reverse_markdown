@@ -1,9 +1,9 @@
 module ReverseMarkdown
   module Converters
     class Li < Base
-      def convert(node)
-        content     = treat_children(node)
-        indentation = indentation_for(node)
+      def convert(node, state = {})
+        content     = treat_children(node, state)
+        indentation = indentation_from(state)
         prefix      = prefix_for(node)
         "#{indentation}#{prefix}#{content.chomp}\n"
       end
@@ -17,8 +17,8 @@ module ReverseMarkdown
         end
       end
 
-      def indentation_for(node)
-        length = node.ancestors('ol').size + node.ancestors('ul').size
+      def indentation_from(state)
+        length = state.fetch(:ol_count, 0)
         '  ' * [length - 1, 0].max
       end
     end

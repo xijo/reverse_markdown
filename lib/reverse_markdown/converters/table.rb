@@ -1,8 +1,8 @@
 module ReverseMarkdown
   module Converters
     class Table < Base
-      def convert(node)
-        "\n\n" << treat_children(node) << "\n"
+      def convert(node, state = {})
+        "\n\n" << treat_children(node, state) << "\n"
       end
     end
 

@@ -1,7 +1,7 @@
 module ReverseMarkdown
   module Converters
     class Ignore < Base
-      def convert(node)
+      def convert(node, state = {})
         '' # noop
       end
     end
