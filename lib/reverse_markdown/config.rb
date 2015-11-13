@@ -1,6 +1,6 @@
 module ReverseMarkdown
   class Config
-    attr_accessor :unknown_tags, :github_flavored, :default_borders
+    attr_accessor :unknown_tags, :github_flavored, :tag_border
 
     def initialize
       @unknown_tags     = :pass_through
@@ -8,7 +8,7 @@ module ReverseMarkdown
       @em_delimiter     = '_'.freeze
       @strong_delimiter = '**'.freeze
       @inline_options   = {}
-      @default_borders  = ' '.freeze
+      @tag_border       = ' '.freeze
     end
 
     def with(options = {})
@@ -26,8 +26,8 @@ module ReverseMarkdown
       @inline_options[:github_flavored] || @github_flavored
     end
 
-    def default_borders
-      @inline_options[:default_borders] || @default_borders
+    def tag_border
+      @inline_options[:tag_border] || @tag_border
     end
   end
 end

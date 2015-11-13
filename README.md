@@ -67,7 +67,7 @@ The following options are available:
   - `bypass` - Ignore the unknown tag but try to convert its content
   - `raise` - Raise an error to let you know
 - `github_flavored` (default `false`) - use [github flavored markdown](https://help.github.com/articles/github-flavored-markdown) (yet only code blocks are supported)
-- `default_borders` (default `' '`) - how to handle tag borders. valid options are:
+- `tag_border` (default `' '`) - how to handle tag borders. valid options are:
   - `' '` - Add whitespace if there is none at tag borders.
   - `''` - Do not not add whitespace.
 
@@ -87,7 +87,7 @@ Or configure it block style on a initializer level. These configurations will la
 ReverseMarkdown.config do |config|
   config.unknown_tags     = :bypass
   config.github_flavored  = true
-  config.default_borders  = ''
+  config.tag_border  = ''
 end
 ```
 
