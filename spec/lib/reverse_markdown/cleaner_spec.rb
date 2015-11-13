@@ -61,46 +61,96 @@ describe ReverseMarkdown::Cleaner do
   end
 
   describe '#clean_tag_borders' do
-    it 'removes not needed whitespaces from strong tags' do
-      input = "foo ** foobar ** bar"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "foo **foobar** bar"
+    context 'with default_border is set to space' do
+      before { ReverseMarkdown.config.default_borders = ' ' }
+
+      it 'removes not needed whitespaces from strong tags' do
+        input = "foo ** foobar ** bar"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "foo **foobar** bar"
+      end
+
+      it 'remotes leading or trailing whitespaces independently' do
+        input = "1 **fat ** 2 ** fat** 3"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 **fat** 2 **fat** 3"
+      end
+
+      it 'adds whitespaces if there are none' do
+        input = "1**fat**2"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 **fat** 2"
+      end
+
+      it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
+        input = "![im__age](sou__rce)"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "![im__age](sou__rce)"
+      end
+
+      it "still cleans up whitespaces that aren't inside a link" do
+        input = "now __italic __with following [under__scored](link)"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "now __italic__ with following [under__scored](link)"
+      end
+
+      it 'cleans italic stuff as well' do
+        input = "1 __italic __ 2 __ italic__ 3__italic __4"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 __italic__ 2 __italic__ 3 __italic__ 4"
+      end
+
+      it 'cleans strikethrough stuff as well' do
+        input = "1 ~~italic ~~ 2 ~~ italic~~ 3~~italic ~~4"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 ~~italic~~ 2 ~~italic~~ 3 ~~italic~~ 4"
+      end
     end
 
-    it 'remotes leading or trailing whitespaces independently' do
-      input = "1 **fat ** 2 ** fat** 3"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "1 **fat** 2 **fat** 3"
-    end
+    context 'with default_border set to no space' do
+      before { ReverseMarkdown.config.default_borders = '' }
 
-    it 'adds whitespaces if there are none' do
-      input = "1**fat**2"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "1 **fat** 2"
-    end
+      it 'removes not needed whitespaces from strong tags' do
+        input = "foo ** foobar ** bar"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "foo **foobar** bar"
+      end
 
-    it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
-      input = "![im__age](sou__rce)"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "![im__age](sou__rce)"
-    end
+      it 'remotes leading or trailing whitespaces independently' do
+        input = "1 **fat ** 2 ** fat** 3"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 **fat** 2 **fat** 3"
+      end
 
-    it "still cleans up whitespaces that aren't inside a link" do
-      input = "now __italic __with following [under__scored](link)"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "now __italic__ with following [under__scored](link)"
-    end
+      it 'adds whitespaces if there are none' do
+        input = "1**fat**2"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1**fat**2"
+      end
 
-    it 'cleans italic stuff as well' do
-      input = "1 __italic __ 2 __ italic__ 3__italic __4"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "1 __italic__ 2 __italic__ 3 __italic__ 4"
-    end
+      it "doesn't add whitespaces to underscore'ed elements if they are part of links" do
+        input = "![im__age](sou__rce)"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "![im__age](sou__rce)"
+      end
 
-    it 'cleans strikethrough stuff as well' do
-      input = "1 ~~italic ~~ 2 ~~ italic~~ 3~~italic ~~4"
-      result = cleaner.clean_tag_borders(input)
-      expect(result).to eq "1 ~~italic~~ 2 ~~italic~~ 3 ~~italic~~ 4"
+      it "still cleans up whitespaces that aren't inside a link" do
+        input = "now __italic __with following [under__scored](link)"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "now __italic__with following [under__scored](link)"
+      end
+
+      it 'cleans italic stuff as well' do
+        input = "1 __italic __ 2 __ italic__ 3__italic __4"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 __italic__ 2 __italic__ 3__italic__4"
+      end
+
+      it 'cleans strikethrough stuff as well' do
+        input = "1 ~~italic ~~ 2 ~~ italic~~ 3~~italic ~~4"
+        result = cleaner.clean_tag_borders(input)
+        expect(result).to eq "1 ~~italic~~ 2 ~~italic~~ 3~~italic~~4"
+      end
     end
   end
 
