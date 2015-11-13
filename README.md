@@ -112,3 +112,6 @@ Thanks to all [contributors](https://github.com/xijo/reverse_markdown/graphs/con
 - [danschultzer](https://github.com/danschultzer) Dan Schultzer
 - [Benjamin-Dobell](https://github.com/Benjamin-Dobell) Benjamin Dobell
 - [schkovich](https://github.com/schkovich) Goran Miskovic
+- [craig-day](https://github.com/craig-day) Craig Day
+- [grmartin](https://github.com/grmartin) Glenn R. Martin
+- [willglynn](https://github.com/willglynn) Will Glynn

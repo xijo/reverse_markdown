@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.0 - Nov 2015
+### Changes
+- BREAKING: Parsing was significantly improved, thanks @craig-day (#60)
+  Please update your custom converters to accept and use the state hash, for
+  examples look into exisiting standard converters.
+- Use OptionParser for command line options, thanks @grmartin (#55)
+- Tag border behavior is now configurable with the `tag_border` option, thanks @faheemmughal (#59)
+- Preserve &gt; and &lt; from original markup, thanks @willglynn (#58)
+
 ## 0.8.2 - May 2015
 ### Changes
 - Don't add whitespaces in links and images if they contain underscores
