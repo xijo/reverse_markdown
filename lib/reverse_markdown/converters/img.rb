@@ -1,7 +1,7 @@
 module ReverseMarkdown
   module Converters
     class Img < Base
-      def convert(node)
+      def convert(node, state = {})
         alt   = node['alt']
         src   = node['src']
         title = extract_title(node)

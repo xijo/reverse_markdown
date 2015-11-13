@@ -1,8 +1,8 @@
 module ReverseMarkdown
   module Converters
     class A < Base
-      def convert(node)
-        name  = treat_children(node)
+      def convert(node, state = {})
+        name  = treat_children(node, state)
         href  = node['href']
         title = extract_title(node)
 

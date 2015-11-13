@@ -1,17 +1,13 @@
 module ReverseMarkdown
   module Converters
     class Em < Base
-      def convert(node)
-        content = treat_children(node)
-        if content.strip.empty? || already_italic?(node)
+      def convert(node, state = {})
+        content = treat_children(node, state.merge(already_italic: true))
+        if content.strip.empty? || state[:already_italic]
           content
         else
           "#{content[/^\s*/]}_#{content.strip}_#{content[/\s*$/]}"
         end
-      end
-
-      def already_italic?(node)
-        node.ancestors('italic').size > 0 || node.ancestors('em').size > 0
       end
     end
 

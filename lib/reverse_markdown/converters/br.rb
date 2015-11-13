@@ -1,7 +1,7 @@
 module ReverseMarkdown
   module Converters
     class Br < Base
-      def convert(node)
+      def convert(node, state = {})
         "  \n"
       end
     end

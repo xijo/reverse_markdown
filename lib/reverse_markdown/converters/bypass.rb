@@ -1,8 +1,8 @@
 module ReverseMarkdown
   module Converters
     class Bypass < Base
-      def convert(node)
-        treat_children(node)
+      def convert(node, state = {})
+        treat_children(node, state)
       end
     end
 

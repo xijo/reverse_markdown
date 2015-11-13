@@ -1,7 +1,7 @@
 module ReverseMarkdown
   module Converters
     class Pre < Base
-      def convert(node)
+      def convert(node, state = {})
         if ReverseMarkdown.config.github_flavored
           "\n```#{language(node)}\n" << node.text.strip << "\n```\n"
         else

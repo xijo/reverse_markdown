@@ -1,17 +1,13 @@
 module ReverseMarkdown
   module Converters
     class Strong < Base
-      def convert(node)
-        content = treat_children(node)
-        if content.strip.empty? || already_strong?(node)
+      def convert(node, state = {})
+        content = treat_children(node, state.merge(already_strong: true))
+        if content.strip.empty? || state[:already_strong]
           content
         else
           "#{content[/^\s*/]}**#{content.strip}**#{content[/\s*$/]}"
         end
-      end
-
-      def already_strong?(node)
-        node.ancestors('strong').size > 0 || node.ancestors('b').size > 0
       end
     end
 

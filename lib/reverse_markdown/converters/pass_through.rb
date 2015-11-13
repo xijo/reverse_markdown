@@ -1,7 +1,7 @@
 module ReverseMarkdown
   module Converters
     class PassThrough < Base
-      def convert(node)
+      def convert(node, state = {})
         node.to_s
       end
     end
