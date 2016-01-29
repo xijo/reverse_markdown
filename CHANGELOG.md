@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.1 - Jan 2016
+### Changes
+- Prevent double escaping of * and _, thanks @craig-day (#61)
+
 ## 1.0.0 - Nov 2015
 ### Changes
 - BREAKING: Parsing was significantly improved, thanks @craig-day (#60)
