@@ -31,14 +31,14 @@ module ReverseMarkdown
 
         text = preserve_keychars_within_backticks(text)
         text = preserve_tags(text)
-        
+
         text
       end
 
       def preserve_nbsp(text)
         text.gsub(/\u00A0/, "&nbsp;")
       end
-      
+
       def preserve_tags(text)
         text.gsub(/[<>]/, '>' => '\>', '<' => '\<')
       end
