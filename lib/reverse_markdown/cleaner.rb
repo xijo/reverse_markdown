@@ -6,7 +6,8 @@ module ReverseMarkdown
       result = remove_newlines(result)
       result = remove_leading_newlines(result)
       result = clean_tag_borders(result)
-      clean_punctuation_characters(result)
+      result = clean_punctuation_characters(result)
+      remove_leading_whitespaces(result)
     end
 
     def remove_newlines(string)
@@ -15,6 +16,10 @@ module ReverseMarkdown
 
     def remove_leading_newlines(string)
       string.gsub(/\A\n+/, '')
+    end
+    
+    def remove_leading_whitespaces(string)
+      string.gsub(/\r\s/, "\r")
     end
 
     def remove_inner_whitespaces(string)
