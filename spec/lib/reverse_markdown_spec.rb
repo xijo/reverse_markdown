@@ -19,6 +19,14 @@ describe ReverseMarkdown do
   it "behaves in a sane way when root element is nil" do
     expect(ReverseMarkdown.convert(nil)).to eq ''
   end
+  
+  it "does not add whitespace at the beginning of a new line" do
+    ReverseMarkdown.config.unknown_tags = :drop
+    ReverseMarkdown.config.github_flavored = true
+    ReverseMarkdown.config.tag_border = ''
+
+    expect(ReverseMarkdown.convert("Praia Joaquina \r\n\r\nThe spot")).to eq "Praia Joaquina \r\rThe spot\n\n"
+  end
 
   describe '#config' do
     it 'stores a given configuration option' do

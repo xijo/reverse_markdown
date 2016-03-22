@@ -14,6 +14,13 @@ describe ReverseMarkdown::Cleaner do
       expect(result).to eq "foo\nbar\n\nbaz"
     end
   end
+  
+  describe '#remove_leading_whitespaces' do
+    it 'removes spaces after line breaks' do
+      result = cleaner.remove_leading_whitespaces("foo\r bar")
+      expect(result).to eq "foo\rbar"
+    end
+  end
 
   describe '#remove_inner_whitespaces' do
     it 'removes duplicate whitespaces from the string' do
