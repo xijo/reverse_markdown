@@ -9,8 +9,16 @@ module ReverseMarkdown
         if href.to_s.start_with?('#') || href.to_s.empty? || name.empty?
           name
         else
-          " [#{name}](#{href}#{title})"
+          link = "[#{name}](#{href}#{title})"
+          link.prepend(' ') if prepend_space?(node)
+          link
         end
+      end
+
+      private
+
+      def prepend_space?(node)
+        node.at_xpath("preceding::text()[1]").to_s.end_with?('!')
       end
     end
 
