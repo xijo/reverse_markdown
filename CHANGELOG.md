@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.2 - Apr 2016
+### Changes
+- Handle edge case: exclamation mark before links, thanks @Easy-D (#57)
+
 ## 1.0.1 - Jan 2016
 ### Changes
 - Prevent double escaping of * and _, thanks @craig-day (#61)
