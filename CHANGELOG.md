@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.3 - Apr 2016
+### Changes
+- Use tag_border option while cleaning up, thanks @AlexanderPruss (#66)
+
 ## 1.0.2 - Apr 2016
 ### Changes
 - Handle edge case: exclamation mark before links, thanks @Easy-D (#57)
