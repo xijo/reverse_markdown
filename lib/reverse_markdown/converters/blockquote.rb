@@ -4,7 +4,7 @@ module ReverseMarkdown
       def convert(node, state = {})
         content = treat_children(node, state).strip
         content = ReverseMarkdown.cleaner.remove_newlines(content)
-        '> ' << content.lines.to_a.join('> ')
+        '> ' << content.lines.to_a.join('> ') << "\n\n"
       end
     end
 
