@@ -15,4 +15,10 @@ describe ReverseMarkdown::Converters::Blockquote do
     result = converter.convert(input)
     expect(result).to eq "> Some text.\n> \n> Some more text."
   end
+
+  it 'adds a newline after the quote to end it' do
+    input = node_for("<blockquote>  This is a quote </blockquote>\n<img alt=\"alt\" src=\"https://path/to/file.jpg\" />")
+    result = converter.convert(input)
+    expect(result).to eq "> This is a quote\n\n ![alt](https://path/to/file.jpg)"
+  end
 end
