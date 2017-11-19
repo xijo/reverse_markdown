@@ -101,4 +101,3 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
     })
   end
 end
-

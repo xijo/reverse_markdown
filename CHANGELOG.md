@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.4 - November 2017
+- Make blockquote behave as true block, thanks for reporting @kanedo (#67)
+
 ## 1.0.3 - Apr 2016
 ### Changes
 - Use tag_border option while cleaning up, thanks @AlexanderPruss (#66)
