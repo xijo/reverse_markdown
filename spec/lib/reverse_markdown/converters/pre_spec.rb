@@ -11,6 +11,11 @@ describe ReverseMarkdown::Converters::Pre do
       node = node_for("<pre>puts foo</pre>")
       expect(converter.convert(node)).to include "    puts foo\n"
     end
+
+    it 'preserves new lines' do
+      node = node_for("<pre>one<br>two<br>three</pre>")
+      expect(converter.convert(node)).to include "\n\n    one  \n    two  \n    three\n\n"
+    end
   end
 
   context 'for github_flavored markdown' do

@@ -17,5 +17,5 @@ RSpec.configure do |config|
 end
 
 def node_for(html)
-  Nokogiri::XML.parse(html).root
+  Nokogiri::HTML.parse(html).root.child.child
 end
