@@ -14,7 +14,12 @@ describe ReverseMarkdown::Converters::Pre do
 
     it 'preserves new lines' do
       node = node_for("<pre>one<br>two<br>three</pre>")
-      expect(converter.convert(node)).to include "\n\n    one  \n    two  \n    three\n\n"
+      expect(converter.convert(node)).to include "\n\n    one\n    two\n    three\n\n"
+    end
+
+    it 'handles code tags correctly' do
+      node = node_for("<pre><code>foobar</code></pre>")
+      expect(converter.convert(node)).to eq "\n\n    foobar\n\n"
     end
   end
 
@@ -24,6 +29,16 @@ describe ReverseMarkdown::Converters::Pre do
     it 'converts with backticks' do
       node = node_for("<pre>puts foo</pre>")
       expect(converter.convert(node)).to include "```\nputs foo\n```"
+    end
+
+    it 'preserves new lines' do
+      node = node_for("<pre>foo<br>bar</pre>")
+      expect(converter.convert(node)).to include "```\nfoo\nbar\n```"
+    end
+
+    it 'handles code tags correctly' do
+      node = node_for("<pre><code>foobar</code></pre>")
+      expect(converter.convert(node)).to include "```\nfoobar\n```"
     end
 
     context 'syntax highlighting' do

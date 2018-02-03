@@ -2,16 +2,27 @@ module ReverseMarkdown
   module Converters
     class Pre < Base
       def convert(node, state = {})
+        content = treat_children(node, state)
         if ReverseMarkdown.config.github_flavored
-          "\n```#{language(node)}\n" << node.text.strip << "\n```\n"
+          "\n```#{language(node)}\n" << content.strip << "\n```\n"
         else
-          treatedChildren = treat_children(node, state).strip
-          treatedChildren = treatedChildren.chomp("`").reverse.chomp("`").reverse if treatedChildren[0] == "`" && treatedChildren[-1] == "`"
-          "\n\n    " << treatedChildren.lines.to_a.join("    ") << "\n\n"
+          "\n\n    " << content.lines.to_a.join("    ") << "\n\n"
         end
       end
 
       private
+
+      # Override #treat as proposed in https://github.com/xijo/reverse_markdown/pull/69
+      def treat(node, state)
+        case node.name
+        when 'code'
+          node.text
+        when 'br'
+          "\n"
+        else
+          super
+        end
+      end
 
       def language(node)
         lang = language_from_highlight_class(node)

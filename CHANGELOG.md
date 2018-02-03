@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.0.5 - February 2018
+- Fix newline handling within pre tags, thanks @niallcolfer (#69)
+
 ## 1.0.4 - November 2017
 - Make blockquote behave as true block, thanks for reporting @kanedo (#67)
 
