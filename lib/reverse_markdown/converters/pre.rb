@@ -5,7 +5,9 @@ module ReverseMarkdown
         if ReverseMarkdown.config.github_flavored
           "\n```#{language(node)}\n" << node.text.strip << "\n```\n"
         else
-          "\n\n    " << node.text.strip.lines.to_a.join("    ") << "\n\n"
+          treatedChildren = treat_children(node, state).strip
+          treatedChildren = treatedChildren.chomp("`").reverse.chomp("`").reverse if treatedChildren[0] == "`" && treatedChildren[-1] == "`"
+          "\n\n    " << treatedChildren.lines.to_a.join("    ") << "\n\n"
         end
       end
 
