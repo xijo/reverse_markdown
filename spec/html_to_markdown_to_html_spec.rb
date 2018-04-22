@@ -1,6 +1,10 @@
 # coding:utf-8
 
-require 'redcarpet'
+begin
+  require 'kramdown'
+rescue LoadError
+  require 'redcarpet'
+end
 require 'spec_helper'
 
 describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redcarpet)' do
@@ -9,13 +13,22 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
 
   def roundtrip_should_preserve(input)
     output = html2markdown2html input
-    expect(normalize_html(input)).to eq normalize_html(output)
+    expect(normalize_html(output)).to eq normalize_html(input)
   end
 
-  def html2markdown2html(orig_html)
-    markdown = ReverseMarkdown.convert orig_html
-    new_html = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(markdown)
-    new_html
+  if defined?(Kramdown)
+    def html2markdown2html(orig_html)
+      markdown = ReverseMarkdown.convert orig_html
+      new_html = Kramdown::Document.new(markdown).to_html.gsub(' />', '>')
+      new_html
+    end
+
+  else
+    def html2markdown2html(orig_html)
+      markdown = ReverseMarkdown.convert orig_html
+      new_html = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(markdown)
+      new_html
+    end
   end
 
   def normalize_html(html)
