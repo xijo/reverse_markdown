@@ -1,10 +1,6 @@
 # coding:utf-8
 
-begin
-  require 'kramdown'
-rescue LoadError
-  require 'redcarpet'
-end
+require 'kramdown'
 require 'spec_helper'
 
 describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redcarpet)' do
@@ -16,19 +12,10 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
     expect(normalize_html(output)).to eq normalize_html(input)
   end
 
-  if defined?(Kramdown)
-    def html2markdown2html(orig_html)
-      markdown = ReverseMarkdown.convert orig_html
-      new_html = Kramdown::Document.new(markdown).to_html.gsub(' />', '>')
-      new_html
-    end
-
-  else
-    def html2markdown2html(orig_html)
-      markdown = ReverseMarkdown.convert orig_html
-      new_html = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(markdown)
-      new_html
-    end
+  def html2markdown2html(orig_html)
+    markdown = ReverseMarkdown.convert orig_html
+    new_html = Kramdown::Document.new(markdown).to_html
+    new_html
   end
 
   def normalize_html(html)
@@ -66,7 +53,7 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
   end
 
   it "should preserve <hr> tags" do
-    roundtrip_should_preserve("<hr>")
+    roundtrip_should_preserve("<hr />")
   end
 
   it "should preserve <em> tags" do
@@ -82,7 +69,7 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
   end
 
   it "should preserve <br> tags" do
-    roundtrip_should_preserve("<p>yes!<br>\n we can!</p>")
+    roundtrip_should_preserve("<p>yes!<br />\n we can!</p>")
   end
 
   it "should preserve <a> tags" do
@@ -91,8 +78,8 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
   end
 
   it "should preserve <img> tags" do
-    roundtrip_should_preserve(%{<p><img src="http://foo.bar/dog.png" alt="My Dog" title="Ralph"></p>})
-    roundtrip_should_preserve(%{<p><img src="http://foo.bar/dog.png" alt="My Dog"></p>})
+    roundtrip_should_preserve(%{<p><img src="http://foo.bar/dog.png" alt="My Dog" title="Ralph" /></p>})
+    roundtrip_should_preserve(%{<p><img src="http://foo.bar/dog.png" alt="My Dog" /></p>})
   end
 
   it "should preserve code blocks" do

@@ -23,11 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rake'
-  if RUBY_PLATFORM == 'java'
-    s.add_development_dependency 'kramdown'
-  else
-    s.add_development_dependency 'redcarpet'
-  end
+  s.add_development_dependency 'kramdown'
   # s.add_development_dependency 'byebug'
   s.add_development_dependency 'codeclimate-test-reporter'
 end
