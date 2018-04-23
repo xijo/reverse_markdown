@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.0 - April 2018
+- Support Jruby, thanks @grddev (#71)
+- Bypass `<tfoot>` tags, thanks @mu-is-too-short (#70)
+
 ## 1.0.5 - February 2018
 - Fix newline handling within pre tags, thanks @niallcolfer (#69)
 
