@@ -10,6 +10,12 @@ describe ReverseMarkdown::Converters::Text do
     expect(result).to eq 'foo bar'
   end
 
+  it 'handles windows-style \r\n correctly' do
+    input = node_for("<p>foo \r\n\r\n bar</p>")
+    result = converter.convert(input)
+    expect(result).to eq 'foo bar'
+  end
+
   it 'removes leading newlines' do
     input = node_for("<p>\n\nfoo bar</p>")
     result = converter.convert(input)

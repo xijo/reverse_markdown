@@ -48,7 +48,7 @@ module ReverseMarkdown
       end
 
       def remove_inner_newlines(text)
-        text.tr("\n\t", ' ').squeeze(' ')
+        text.tr("\r\n\t", ' ').squeeze(' ')
       end
 
       def preserve_keychars_within_backticks(text)

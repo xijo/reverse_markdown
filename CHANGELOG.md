@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.2.0 - April 2019
+- Handle windows `\r\n` within text blocks, thanks for reporting @krisdigital
+
 ## 1.1.0 - April 2018
 - Support Jruby, thanks @grddev (#71)
 - Bypass `<tfoot>` tags, thanks @mu-is-too-short (#70)
