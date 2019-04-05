@@ -1,5 +1,5 @@
-before_install:
-  - gem install bundler
+# before_install:
+#   - gem install bundler
 
 rvm:
   - 1.9.3
@@ -12,11 +12,13 @@ rvm:
   - 2.3.0
   - 2.3.1
   - 2.4.2
-  - jruby-9.1.16.0
+  - 2.5.3
+  - 2.6.2
+  - jruby-9.2.0.0
 
 script: "bundle exec rake spec"
 
 notifications:
   disabled: false
   recipients:
-    - johannes.opper@gmail.com
+    - xijo@pm.me
