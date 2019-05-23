@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/xijo/reverse_markdown"
   s.summary     = %q{Convert html code into markdown.}
   s.description = %q{Map simple html back into markdown, e.g. if you want to import existing html data in your application.}
-
+  s.licenses    = ["WTFPL"]
   s.rubyforge_project = "reverse_markdown"
 
   s.files         = `git ls-files`.split("\n")
