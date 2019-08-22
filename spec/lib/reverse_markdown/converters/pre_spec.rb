@@ -21,6 +21,11 @@ describe ReverseMarkdown::Converters::Pre do
       node = node_for("<pre><code>foobar</code></pre>")
       expect(converter.convert(node)).to eq "\n\n    foobar\n\n"
     end
+
+    it 'handles indented correctly' do
+      node = node_for("<pre><code>if foo\n  return bar\nend</code></pre>")
+      expect(converter.convert(node)).to eq "\n\n    if foo\n      return bar\n    end\n\n"
+    end
   end
 
   context 'for github_flavored markdown' do
