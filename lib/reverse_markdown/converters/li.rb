@@ -2,10 +2,14 @@ module ReverseMarkdown
   module Converters
     class Li < Base
       def convert(node, state = {})
-        content     = treat_children(node, state)
-        indentation = indentation_from(state)
-        prefix      = prefix_for(node)
-        "#{indentation}#{prefix}#{content.chomp}\n"
+        contains_child_paragraph = node.children.first ? node.children.first.name == 'p' : false
+        content_node             = contains_child_paragraph ? node.children.first : node
+        content                  = treat_children(content_node, state)
+        indentation              = indentation_from(state)
+        prefix                   = prefix_for(node)
+
+        "#{indentation}#{prefix}#{content.chomp}\n" +
+          (contains_child_paragraph ? "\n" : '')
       end
 
       def prefix_for(node)

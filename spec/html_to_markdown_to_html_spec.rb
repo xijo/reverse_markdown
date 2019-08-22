@@ -52,6 +52,16 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
     ")
   end
 
+  it "should preserve lists with paragraphs" do
+    roundtrip_should_preserve("
+      <ul>
+        <li><p>Bird</p></li>
+        <li><p>McHale</p></li>
+        <li><p>Parish</p></li>
+      </ul>
+      ")
+  end
+
   it "should preserve <hr> tags" do
     roundtrip_should_preserve("<hr />")
   end
