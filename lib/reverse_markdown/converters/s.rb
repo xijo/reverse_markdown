@@ -12,5 +12,7 @@ module ReverseMarkdown
     end
 
     register :s, S.new
+    register :del, S.new
+    register :strike, S.new
   end
 end
