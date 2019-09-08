@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.3.0 - September 2019
+- Add support for `s` HTML tag, thanks @fauno
+
 ## 1.2.0 - August 2019
 - Handle windows `\r\n` within text blocks, thanks for reporting @krisdigital
 - Handle paragraphs in `li` tags, thanks @gstamp

@@ -11,6 +11,11 @@ describe ReverseMarkdown::Converters::Del do
       expect(converter.convert(input)).to eq '~~deldeldel~~'
     end
 
+    it 'converts the input as expected' do
+      input = node_for('<s>strike that</s>')
+      expect(converter.convert(input)).to eq '~~strike that~~'
+    end
+
     it 'skips empty tags' do
       input = node_for('<del></del>')
       expect(converter.convert(input)).to eq ''

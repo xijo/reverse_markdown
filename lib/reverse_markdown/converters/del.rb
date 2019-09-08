@@ -20,6 +20,7 @@ module ReverseMarkdown
     end
 
     register :strike, Del.new
+    register :s,      Del.new
     register :del,    Del.new
   end
 end
