@@ -33,15 +33,17 @@ require 'reverse_markdown/converters/tr'
 module ReverseMarkdown
 
   def self.convert(input, options = {})
-    root = case input
-      when String                  then Nokogiri::HTML(input).root
-      when Nokogiri::XML::Document then input.root
-      when Nokogiri::XML::Node     then input
-    end
-
-    root or return ''
-
     config.with(options) do
+      input = cleaner.force_encoding(input.to_s)
+
+      root = case input
+        when String                  then Nokogiri::HTML(input).root
+        when Nokogiri::XML::Document then input.root
+        when Nokogiri::XML::Node     then input
+      end
+
+      root or return ''
+
       result = ReverseMarkdown::Converters.lookup(root.name).convert(root)
       cleaner.tidy(result)
     end

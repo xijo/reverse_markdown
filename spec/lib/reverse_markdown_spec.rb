@@ -33,5 +33,15 @@ describe ReverseMarkdown do
       end
       expect(ReverseMarkdown.config.github_flavored).to eq true
     end
+
+    describe 'force_encoding option', jruby: :exclude do
+      it 'raises invalid byte sequence in UTF-8 exception' do
+        expect { ReverseMarkdown.convert("hi \255") }.to raise_error(ArgumentError)
+      end
+
+      it 'handles invalid byte sequence if option is set' do
+        expect(ReverseMarkdown.convert("hi \255", force_encoding: true)).to eq "hi\n\n"
+      end
+    end
   end
 end
