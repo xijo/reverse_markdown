@@ -59,6 +59,11 @@ module ReverseMarkdown
       string.gsub(/(\*\*|~~|__)\s([\.!\?'"])/, "\\1".strip + "\\2")
     end
 
+    def force_encoding(string)
+      ReverseMarkdown.config.force_encoding or return string
+      string.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    end
+
     private
 
     def preserve_border_whitespaces(string, options = {}, &block)
