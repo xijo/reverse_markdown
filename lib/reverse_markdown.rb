@@ -1,4 +1,3 @@
-require 'digest'
 require 'nokogiri'
 require 'reverse_markdown/version'
 require 'reverse_markdown/errors'
