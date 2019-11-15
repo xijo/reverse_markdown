@@ -1,6 +1,6 @@
 module ReverseMarkdown
   class Config
-    attr_accessor :unknown_tags, :github_flavored, :tag_border, :force_encoding
+    attr_writer :unknown_tags, :github_flavored, :tag_border, :force_encoding
 
     def initialize
       @unknown_tags     = :pass_through
