@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.4.0 – January 2020
+- BREAKING: jump links will no longer be ignored but treated as links, see #82
+
 ## 1.3.0 - September 2019
 - Add support for `s` HTML tag, thanks @fauno
 
