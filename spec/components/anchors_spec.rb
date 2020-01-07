@@ -20,7 +20,7 @@ describe ReverseMarkdown do
   context "links to ignore" do
     it { is_expected.to include ' ignore anchor tags with no link text ' }
     it { is_expected.to include ' not ignore [![An Image](image.png)](foo.html) anchor tags with images' }
-    it { is_expected.to include ' pass through the text of internal jumplinks without treating them as links ' }
+    it { is_expected.to include ' pass through the text of [internal jumplinks](#content) without treating them as links ' }
     it { is_expected.to include ' pass through the text of anchor tags with no href without treating them as links ' }
   end
 

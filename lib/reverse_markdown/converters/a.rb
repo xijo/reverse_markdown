@@ -6,7 +6,7 @@ module ReverseMarkdown
         href  = node['href']
         title = extract_title(node)
 
-        if href.to_s.start_with?('#') || href.to_s.empty? || name.empty?
+        if href.to_s.empty? || name.empty?
           name
         else
           link = "[#{name}](#{href}#{title})"
