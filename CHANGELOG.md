@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 - March 2020
+- BREAKING: Dropped support for ruby 1.9.3
+- Add support for `details` and `summary` tags, see #85
+
 ## 1.4.0 – January 2020
 - BREAKING: jump links will no longer be ignored but treated as links, see #82
 
