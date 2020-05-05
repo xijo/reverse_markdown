@@ -8,4 +8,3 @@ Gemfile.lock
 pkg/*
 coverage/*
 TODO
-.DS_store
