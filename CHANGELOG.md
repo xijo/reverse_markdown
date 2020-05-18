@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 2.1.0 - May 2020
+- Add support for `figure` tags, see #86, thanks @anshul78
+
 ## 2.0.0 - March 2020
 - BREAKING: Dropped support for ruby 1.9.3
 - Add support for `details` and `summary` tags, see #85
