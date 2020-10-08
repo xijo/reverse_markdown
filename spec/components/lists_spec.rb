@@ -35,7 +35,8 @@ describe ReverseMarkdown do
   end
 
   context "lists containing embedded <p> tags" do
-    xit { is_expected.to match /\n- I want to have a party at my house!\n/ }
+    it { is_expected.to match /\n- I want to have a party at my house!\n/ }
+    it { is_expected.to match /\n- I don't want to cleanup after the party!\n/ }
   end
 
   context "list item containing multiple <p> tags" do
