@@ -17,6 +17,9 @@ module ReverseMarkdown
         case node.name
         when 'code'
           node.text
+        when 'text'
+          # Preserve '\n' in the middle of text/words, get rid of indentation spaces
+          ReverseMarkdown.cleaner.remove_leading_newlines(node.text.gsub("\n", '<br>').strip.gsub('<br>', "\n"))
         when 'br'
           "\n"
         else

@@ -12,9 +12,14 @@ describe ReverseMarkdown::Converters::Pre do
       expect(converter.convert(node)).to include "    puts foo\n"
     end
 
-    it 'preserves new lines' do
+    it 'preserves new lines as <br>' do
       node = node_for("<pre>one<br>two<br>three</pre>")
       expect(converter.convert(node)).to include "\n\n    one\n    two\n    three\n\n"
+    end
+    
+    it 'preserves new lines as <br> and \n' do
+      node = node_for("<pre>one\ntwo\nthree<br>four</pre>")
+      expect(converter.convert(node)).to include "\n\n    one\n    two\n    three\n    four\n\n"
     end
 
     it 'handles code tags correctly' do
@@ -39,6 +44,11 @@ describe ReverseMarkdown::Converters::Pre do
     it 'preserves new lines' do
       node = node_for("<pre>foo<br>bar</pre>")
       expect(converter.convert(node)).to include "```\nfoo\nbar\n```"
+    end
+
+    it 'preserves new lines as <br> and \n' do
+      node = node_for("<pre>one\ntwo\nthree<br>four</pre>")
+      expect(converter.convert(node)).to include "```\none\ntwo\nthree\nfour\n```"
     end
 
     it 'handles code tags correctly' do
