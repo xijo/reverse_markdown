@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 2.1.1 - October 2021
+- Fixes unintentional newline characters within lists with paragraphs, thanks @diogoosorio, see #93
+- Lets \n to be present in <pre> tag. solves #77 #78, thanks @shivabhusal
+
 ## 2.1.0 - May 2020
 - Add support for `figure` tags, see #86, thanks @anshul78
 

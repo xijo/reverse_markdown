@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ReverseMarkdown do
-
   let(:input)    { File.read('spec/assets/paragraphs.html') }
   let(:document) { Nokogiri::HTML(input) }
   subject { ReverseMarkdown.convert(input) }

@@ -15,11 +15,8 @@ module ReverseMarkdown
       # Override #treat as proposed in https://github.com/xijo/reverse_markdown/pull/69
       def treat(node, state)
         case node.name
-        when 'code'
-          node.text
-        when 'text'
-          # Preserve '\n' in the middle of text/words, get rid of indentation spaces
-          ReverseMarkdown.cleaner.remove_leading_newlines(node.text.gsub("\n", '<br>').strip.gsub('<br>', "\n"))
+        when 'code', 'text'
+          node.text.strip
         when 'br'
           "\n"
         else
