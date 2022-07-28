@@ -22,7 +22,7 @@ module ReverseMarkdown
 
       def extract_src(node)
         src = escape_keychars(node['src'].to_s)
-        src.empty? ? '' : %[ "#{src}"]
+        src.empty? ? '' : src
       end
     end
   end
