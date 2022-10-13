@@ -27,14 +27,19 @@ module ReverseMarkdown
       def language(node)
         lang = language_from_highlight_class(node)
         lang || language_from_confluence_class(node)
+        lang || language_from_language_class(node)
       end
 
       def language_from_highlight_class(node)
         node.parent['class'].to_s[/highlight-([a-zA-Z0-9]+)/, 1]
       end
-
+      
       def language_from_confluence_class(node)
         node['class'].to_s[/brush:\s?(:?.*);/, 1]
+      end
+
+      def language_from_language_class(node)
+        node.parent['class'].to_s[/language-([a-zA-Z0-9]+)/, 1]
       end
     end
 
