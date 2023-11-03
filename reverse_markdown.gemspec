@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'kramdown'
-  s.add_development_dependency 'byebug'
+  s.add_development_dependency 'debug'
   s.add_development_dependency 'codeclimate-test-reporter'
 end
