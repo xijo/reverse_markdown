@@ -65,4 +65,7 @@ describe ReverseMarkdown do
     it { is_expected.to match /\n- delta\n/ }
   end
 
+  context "text following list should have a new line separator" do
+    it { is_expected.to match /\n- item followed with a text\n\n text after the list/ }
+  end
 end

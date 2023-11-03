@@ -1,5 +1,5 @@
 require 'simplecov'
-# require 'byebug'
+require 'debug'
 
 SimpleCov.profiles.define 'gem' do
   add_filter '/spec/'
