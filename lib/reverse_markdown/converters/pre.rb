@@ -4,9 +4,9 @@ module ReverseMarkdown
       def convert(node, state = {})
         content = treat_children(node, state)
         if ReverseMarkdown.config.github_flavored
-          "\n```#{language(node)}\n" << content.strip << "\n```\n"
+          +"\n```#{language(node)}\n" << content.strip << "\n```\n"
         else
-          "\n\n    " << content.lines.to_a.join("    ") << "\n\n"
+          +"\n\n    " << content.lines.to_a.join("    ") << "\n\n"
         end
       end
 
