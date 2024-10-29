@@ -5,7 +5,7 @@ module ReverseMarkdown
         if node.text.strip.empty?
           ""
         else
-          "\n" << "_#{node.text.strip}_" << "\n"
+          +"\n" << "_#{node.text.strip}_" << "\n"
         end
       end
     end

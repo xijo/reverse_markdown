@@ -2,7 +2,7 @@ module ReverseMarkdown
   module Converters
     class Base
       def treat_children(node, state)
-        node.children.inject('') do |memo, child|
+        node.children.inject(+'') do |memo, child|
           memo << treat(child, state)
         end
       end
