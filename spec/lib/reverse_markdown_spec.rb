@@ -36,7 +36,8 @@ describe ReverseMarkdown do
 
     describe 'force_encoding option', jruby: :exclude do
       it 'raises invalid byte sequence in UTF-8 exception' do
-        expect { ReverseMarkdown.convert("hi \255") }.to raise_error(Encoding::CompatibilityError)
+        # Older versions of ruby used to raise ArgumentError here. Remove when we drop support for 3.1.
+        expect { ReverseMarkdown.convert("hi \255") }.to raise_error { [Encoding::CompatibilityError, ArgumentError].include?(_1.class) }
       end
 
       it 'handles invalid byte sequence if option is set' do
