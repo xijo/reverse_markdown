@@ -19,6 +19,10 @@ module ReverseMarkdown
         title = escape_keychars(node['title'].to_s)
         title.empty? ? '' : %[ "#{title}"]
       end
+
+      def extract_src(node)
+        node['src'].to_s.empty? ? '' : node['src'].to_s
+      end
     end
   end
 end

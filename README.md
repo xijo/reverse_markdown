@@ -11,7 +11,7 @@ See [Change Log](CHANGELOG.md)
 ## Requirements
 
 1. [Nokogiri](http://nokogiri.org/)
-2. Ruby 2.0.0 or higher
+2. Ruby 2.7.0 or higher
 
 ## Installation
 
