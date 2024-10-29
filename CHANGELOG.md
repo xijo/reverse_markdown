@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 - BREAKING: Dropped support for ruby 2.6.0 and lower
 - Bugfix for missing newline behind `ol`, thanks @Kevinrob, see #104
 - Add support for `iframe` tags, thanks @gagandeepsinghj, see #102
+- Support for frozen string literals, thanks @pat, see #105
 
 ## 2.1.1 - October 2021
 - Fixes unintentional newline characters within lists with paragraphs, thanks @diogoosorio, see #93
