@@ -2,7 +2,7 @@
 
 Transform html into markdown. Useful for example if you want to import html into your markdown based application.
 
-[![Build Status](https://secure.travis-ci.org/xijo/reverse_markdown.svg?branch=master)](https://travis-ci.org/xijo/reverse_markdown) [![Gem Version](https://badge.fury.io/rb/reverse_markdown.svg)](http://badge.fury.io/rb/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown.svg)](https://codeclimate.com/github/xijo/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown/coverage.png)](https://codeclimate.com/github/xijo/reverse_markdown)
+![Build Status](https://github.com/xijo/reverse_markdown/actions/workflows/ci.yml/badge.svg) [![Gem Version](https://badge.fury.io/rb/reverse_markdown.svg)](http://badge.fury.io/rb/reverse_markdown) [![Code Climate](https://codeclimate.com/github/xijo/reverse_markdown.svg)](https://codeclimate.com/github/xijo/reverse_markdown) [![Test Coverage](https://api.codeclimate.com/v1/badges/6ce481ba7ae6f57dc4d3/test_coverage)](https://codeclimate.com/github/xijo/reverse_markdown/test_coverage)
 
 ## Changelog
 
