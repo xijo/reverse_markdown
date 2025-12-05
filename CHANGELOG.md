@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 3.0.1 - December 2025
+- Use https instead of http
+
 ## 3.0.0 - October 2024
 - BREAKING: Dropped support for ruby 2.6.0 and lower
 - Bugfix for missing newline behind `ol`, thanks @Kevinrob, see #104
