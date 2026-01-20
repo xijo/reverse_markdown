@@ -17,4 +17,12 @@ describe ReverseMarkdown::Converters::Strong do
     input = node_for("<strong> \n foo </strong>")
     expect(converter.convert(input)).to eq " **foo** "
   end
+
+  it 'splits markers at paragraph breaks' do
+    # Issue #95: <br><br> inside strong creates a paragraph break
+    # Markers must be split so markdown renders correctly
+    result = ReverseMarkdown.convert('<strong>hello<br><br>world</strong>')
+    expect(result).to include('**hello**')
+    expect(result).to include('**world**')
+  end
 end
