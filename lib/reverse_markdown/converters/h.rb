@@ -3,7 +3,10 @@ module ReverseMarkdown
     class H < Base
       def convert(node, state = {})
         prefix = '#' * node.name[/\d/].to_i
-        ["\n", prefix, ' ', treat_children(node, state), "\n"].join
+        content = treat_children(node, state).strip
+        # Merge lines into one (markdown headings can't span multiple lines)
+        content = content.split(/\s*\n\s*/).join(' ')
+        "\n#{prefix} #{content}\n"
       end
     end
 

@@ -6,7 +6,7 @@ module ReverseMarkdown
         if content.strip.empty? || state[:already_strong]
           content
         else
-          "#{content[/^\s*/]}**#{content.strip}**#{content[/\s*$/]}"
+          wrap_with_markers(content, '**')
         end
       end
     end
