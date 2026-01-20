@@ -52,36 +52,38 @@ module ReverseMarkdown
       end
 
       def remove_border_newlines(text, node)
-        result = text.gsub(/\A\n+/, '')
-        # Only convert trailing newlines to space if there's following inline content
-        # This handles HTML whitespace collapsing between inline elements
-        if has_following_inline_content?(node)
+        # Convert leading newlines to space if there's preceding inline content
+        result = if has_adjacent_inline_content?(node, :previous)
+          text.gsub(/\A\n+/, ' ')
+        else
+          text.gsub(/\A\n+/, '')
+        end
+
+        # Convert trailing newlines to space if there's following inline content
+        if has_adjacent_inline_content?(node, :next)
           result.gsub(/\n+\z/, ' ')
         else
           result.gsub(/\n+\z/, '')
         end
       end
 
-      def has_following_inline_content?(node)
-        # Check if node has a following sibling that is inline content
-        sibling = node.next_sibling
+      def has_adjacent_inline_content?(node, direction)
+        sibling = direction == :next ? node.next_sibling : node.previous_sibling
         while sibling
           if sibling.text?
             return true unless sibling.text.strip.empty?
           elsif INLINE_ELEMENTS.include?(sibling.name.to_sym)
             return true
           else
-            # Block element - no space needed before it
             return false
           end
-          sibling = sibling.next_sibling
+          sibling = direction == :next ? sibling.next_sibling : sibling.previous_sibling
         end
 
-        # Recursively check if inline parent has following content
         parent = node.parent
         return false unless INLINE_ELEMENTS.include?(parent.name.to_sym)
 
-        has_following_inline_content?(parent)
+        has_adjacent_inline_content?(parent, direction)
       end
 
       def remove_inner_newlines(text)

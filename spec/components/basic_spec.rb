@@ -61,5 +61,11 @@ describe ReverseMarkdown do
       result = ReverseMarkdown.convert(input)
       expect(result).to eq "_A_ B\n\n"
     end
+
+    it 'preserves whitespace surrounding links' do
+      # Issue #91: newlines around inline elements should become spaces
+      result = ReverseMarkdown.convert("a\n<a href='1'>link</a>\nis good")
+      expect(result.strip).to eq "a [link](1) is good"
+    end
   end
 end
