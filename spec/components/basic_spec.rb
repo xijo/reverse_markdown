@@ -40,4 +40,26 @@ describe ReverseMarkdown do
   it { is_expected.to match /before hr \n\* \* \*\n after hr/ }
 
   it { is_expected.to match /section 1\n ?\nsection 2/ }
+
+  describe 'whitespace handling between inline elements' do
+    it 'preserves whitespace (including newlines) between spans' do
+      input = "<span>Hello\n</span><span>World</span>"
+      result = ReverseMarkdown.convert(input)
+      expect(result).to eq "Hello World"
+    end
+
+    it 'preserves whitespace between inline elements in paragraphs' do
+      input = "<p><span>Hello\n</span><span>World</span></p>"
+      result = ReverseMarkdown.convert(input)
+      expect(result).to eq "Hello World\n\n"
+    end
+
+    it 'preserves whitespace between nested inline elements' do
+      # The text "A" is nested inside <span> inside <em>, but <em> has a following sibling
+      # This requires traversing up through parent nodes to find following content
+      input = "<p><em><span>A\n</span></em><span>B</span></p>"
+      result = ReverseMarkdown.convert(input)
+      expect(result).to eq "_A_ B\n\n"
+    end
+  end
 end

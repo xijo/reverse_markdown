@@ -22,7 +22,7 @@ describe ReverseMarkdown::Converters::Text do
     expect(result).to eq 'foo bar'
   end
 
-  it 'removes trailing newlines' do
+  it 'removes trailing newlines when no following content' do
     input = node_for("<p>foo bar\n\n</p>")
     result = converter.convert(input)
     expect(result).to eq 'foo bar'
