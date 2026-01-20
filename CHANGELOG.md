@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 3.0.2 - January 2026
+- Add support for ruby 4.0
+- Some cleanup of test cases, thanks @joelhawksley, see #107
+- Fix whitespace collapsing between inline elements, see #34
+- Fix whitespace around links, see #91
+- Split emphasis markers at paragraph breaks, merge heading lines, see #95
+
 ## 3.0.1 - December 2025
 - Use https instead of http
 
