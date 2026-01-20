@@ -8,6 +8,12 @@ Transform html into markdown. Useful for example if you want to import html into
 
 See [Change Log](CHANGELOG.md)
 
+## Limitations
+
+A perfect HTML to Markdown conversion is not possible. HTML is far more expressive than Markdown - it supports tables with merged cells, arbitrary nesting, inline styles, and countless other features that have no Markdown equivalent.
+
+This gem aims to provide good enough defaults for most common cases. It handles standard content well but does not attempt to solve every edge case. If you have highly specific conversion needs, you can [write custom converters](https://github.com/xijo/reverse_markdown/wiki/Write-your-own-converter) to handle them.
+
 ## Requirements
 
 1. [Nokogiri](http://nokogiri.org/)
