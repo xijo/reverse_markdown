@@ -60,6 +60,43 @@ describe ReverseMarkdown::Cleaner do
     end
   end
 
+  describe '#merge_adjacent_emphasis' do
+    it 'merges two adjacent underscore emphasis tags' do
+      result = cleaner.merge_adjacent_emphasis('_a__b_')
+      expect(result).to eq '_ab_'
+    end
+
+    it 'merges three adjacent underscore emphasis tags' do
+      result = cleaner.merge_adjacent_emphasis('_a__b__c_')
+      expect(result).to eq '_abc_'
+    end
+
+    it 'merges two adjacent strong emphasis tags' do
+      result = cleaner.merge_adjacent_emphasis('**a****b**')
+      expect(result).to eq '**ab**'
+    end
+
+    it 'merges three adjacent strong emphasis tags' do
+      result = cleaner.merge_adjacent_emphasis('**a****b****c**')
+      expect(result).to eq '**abc**'
+    end
+
+    it 'does not merge emphasis tags separated by whitespace' do
+      result = cleaner.merge_adjacent_emphasis('_a_ _b_')
+      expect(result).to eq '_a_ _b_'
+    end
+
+    it 'does not merge strong tags separated by whitespace' do
+      result = cleaner.merge_adjacent_emphasis('**a** **b**')
+      expect(result).to eq '**a** **b**'
+    end
+
+    it 'handles mixed content correctly' do
+      result = cleaner.merge_adjacent_emphasis('text _a__b_ more **c****d** end')
+      expect(result).to eq 'text _ab_ more **cd** end'
+    end
+  end
+
   describe '#clean_tag_borders' do
     context 'with default_border is set to space' do
       before { ReverseMarkdown.config.tag_border = ' ' }
