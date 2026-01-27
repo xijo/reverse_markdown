@@ -37,10 +37,8 @@ module ReverseMarkdown
 
   def self.convert(input, options = {})
     config.with(options) do
-      input = cleaner.force_encoding(input.to_s)
-
       root = case input
-        when String                  then Nokogiri::HTML(input).root
+        when String                  then Nokogiri::HTML(cleaner.force_encoding(input.to_s)).root
         when Nokogiri::XML::Document then input.root
         when Nokogiri::XML::Node     then input
       end
