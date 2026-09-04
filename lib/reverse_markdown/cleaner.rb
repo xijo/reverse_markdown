@@ -18,11 +18,13 @@ module ReverseMarkdown
     end
 
     def remove_inner_whitespaces(string)
-      string.each_line.inject("") do |memo, line|
-        memo + preserve_border_whitespaces(line) do
+      result = String.new(encoding: Encoding::UTF_8)
+      string.each_line do |line|
+        result << preserve_border_whitespaces(line) do
           line.strip.gsub(/[ \t]{2,}/, ' ')
         end
       end
+      result
     end
 
     # Find non-asterisk content that is enclosed by two or
