@@ -2,9 +2,9 @@ require 'simplecov'
 require 'debug' unless RUBY_ENGINE == 'jruby'
 
 SimpleCov.profiles.define 'gem' do
-  add_filter '/spec/'
-  add_filter '/autotest/'
-  add_group 'Libraries', '/lib/'
+  skip '/spec/'
+  skip '/autotest/'
+  group 'Libraries', '/lib/'
 end
 SimpleCov.start 'gem'
 
