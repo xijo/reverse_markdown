@@ -23,5 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'kramdown'
+  s.add_development_dependency 'ostruct'
   s.add_development_dependency 'debug' unless RUBY_ENGINE == 'jruby'
 end
