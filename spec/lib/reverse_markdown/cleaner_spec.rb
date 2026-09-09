@@ -50,6 +50,14 @@ describe ReverseMarkdown::Cleaner do
       result = cleaner.remove_inner_whitespaces("foo \nbar \n \n  \nfoo")
       expect(result).to eq "foo \nbar \n \n  \nfoo"
     end
+
+    it 'preserves multiline content and its frozen input' do
+      input = "  third  item  \n\n \t \n[first  link](path  here)\n\tsecond   item\t\n".freeze
+
+      result = cleaner.remove_inner_whitespaces(input)
+
+      expect(result).to eq "  third item  \n\n \t \n[first link](path here)\n\tsecond item\t\n"
+    end
   end
 
   describe '#clean_punctuation_characters' do
