@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 3.0.3 - September 2026
+- Make whitespace cleanup linear instead of quadratic, thanks @skatkov, see #114
+- Only force encoding on raw string input, thanks @FoboCasteR, see #112
+- Remove simplecov deprecation warnings and refresh dev dependencies, thanks @skatkov, see #115
+
 ## 3.0.2 - January 2026
 - Add support for ruby 4.0
 - Some cleanup of test cases, thanks @joelhawksley, see #107

@@ -8,3 +8,5 @@ Gemfile.lock
 pkg/*
 coverage/*
 TODO
+.claude/
+CLAUDE.md
