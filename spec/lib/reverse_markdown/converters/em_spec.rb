@@ -25,4 +25,18 @@ describe ReverseMarkdown::Converters::Em do
     expect(result).to include('_hello_')
     expect(result).to include('_world_')
   end
+
+  it 'merges adjacent em tags into single emphasis' do
+    # Issue #99: Adjacent emphasis tags like <em>wo</em><em>rd</em>
+    # should produce _word_ not _wo__rd_
+    expect(ReverseMarkdown.convert('<em>wo</em><em>rd</em>')).to eq '_word_'
+  end
+
+  it 'merges multiple adjacent em tags' do
+    expect(ReverseMarkdown.convert('<em>a</em><em>b</em><em>c</em>')).to eq '_abc_'
+  end
+
+  it 'keeps separate emphasis when tags have whitespace between them' do
+    expect(ReverseMarkdown.convert('<em>a</em> <em>b</em>')).to eq '_a_ _b_'
+  end
 end

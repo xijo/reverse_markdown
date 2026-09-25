@@ -5,8 +5,30 @@ module ReverseMarkdown
       result = remove_inner_whitespaces(string)
       result = remove_newlines(result)
       result = remove_leading_newlines(result)
+      result = merge_adjacent_emphasis(result)
       result = clean_tag_borders(result)
       clean_punctuation_characters(result)
+    end
+
+    def merge_adjacent_emphasis(string)
+      result = string
+
+      # Merge adjacent underscore emphasis: _X__Y_ → _XY_
+      # Apply repeatedly for multiple adjacent tags
+      loop do
+        new_result = result.gsub(/_([^_\n]+)__([^_\n]+)_/, '_\1\2_')
+        break if new_result == result
+        result = new_result
+      end
+
+      # Merge adjacent strong emphasis: **X****Y** → **XY**
+      loop do
+        new_result = result.gsub(/\*\*([^*\n]+)\*\*\*\*([^*\n]+)\*\*/, '**\1\2**')
+        break if new_result == result
+        result = new_result
+      end
+
+      result
     end
 
     def remove_newlines(string)
