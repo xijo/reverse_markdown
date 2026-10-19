@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+- Traverse native Nokogiri document fragments through the existing tag converters.
+
 ## 3.0.3 - September 2026
 - Make whitespace cleanup linear instead of quadratic, thanks @skatkov, see #114
 - Only force encoding on raw string input, thanks @FoboCasteR, see #112
