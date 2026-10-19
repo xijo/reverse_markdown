@@ -43,6 +43,13 @@ module ReverseMarkdown
       def extract_src(node)
         node['src'].to_s.empty? ? '' : node['src'].to_s
       end
+
+      private
+
+      def preserve_literal(content, state)
+        literals = state[:literal_content]
+        literals ? literals.protect(content) : content
+      end
     end
   end
 end

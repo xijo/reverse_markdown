@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 - Traverse native Nokogiri document fragments through the existing tag converters.
+- Preserve spaces, tabs, blank lines, and literal markup in inline and block code during prose cleanup, including code in blockquotes and syntax-highlighting wrappers.
 
 ## 3.0.3 - September 2026
 - Make whitespace cleanup linear instead of quadratic, thanks @skatkov, see #114
