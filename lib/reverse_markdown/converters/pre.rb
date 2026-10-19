@@ -2,25 +2,27 @@ module ReverseMarkdown
   module Converters
     class Pre < Base
       def convert(node, state = {})
-        content = treat_children(node, state)
+        content = treat_children(node, state).strip
         if ReverseMarkdown.config.github_flavored
-          +"\n```#{language(node)}\n" << content.strip << "\n```\n"
+          code = "```#{language(node)}\n#{content}\n```"
+          "\n#{preserve_literal(code, state)}\n"
         else
-          +"\n\n    " << content.lines.to_a.join("    ") << "\n\n"
+          code = "    #{content.lines.to_a.join('    ')}"
+          "\n\n#{preserve_literal(code, state)}\n\n"
         end
       end
 
       private
 
-      # Override #treat as proposed in https://github.com/xijo/reverse_markdown/pull/69
+      # Highlighting wrappers are not prose: recurse without normalizing or
+      # escaping their text, while preserving explicit HTML line breaks.
       def treat(node, state)
-        case node.name
-        when 'code', 'text'
-          node.text.strip
-        when 'br'
+        if node.text? || node.cdata?
+          node.text
+        elsif node.name == 'br'
           "\n"
         else
-          super
+          treat_children(node, state)
         end
       end
 

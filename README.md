@@ -39,6 +39,7 @@ gem 'reverse_markdown'
 - Module based - if you miss a tag, just add it
 - Can deal with nested lists
 - Inline and block code is supported
+- Prose cleanup does not collapse spaces, tabs, or blank lines inside code
 - Supports blockquote
 
 
