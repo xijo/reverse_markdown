@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+- Preserve nested lists and later paragraphs in list items that begin with a paragraph, with continuation indentation matching the list marker width.
+
 ## 3.0.3 - September 2026
 - Make whitespace cleanup linear instead of quadratic, thanks @skatkov, see #114
 - Only force encoding on raw string input, thanks @FoboCasteR, see #112

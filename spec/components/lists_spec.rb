@@ -11,8 +11,8 @@ describe ReverseMarkdown do
   it { is_expected.to match /\n1. ordered list entry\n/ }
   it { is_expected.to match /\n2. ordered list entry 2\n/ }
   it { is_expected.to match /\n1. list entry 1st hierarchy\n/ }
-  it { is_expected.to match /\n {2}- nested unsorted list entry\n/ }
-  it { is_expected.to match /\n {4}1. deep nested list entry\n/ }
+  it { is_expected.to match /\n {3}- nested unsorted list entry\n/ }
+  it { is_expected.to match /\n {5}1. deep nested list entry\n/ }
 
   context "nested list with no whitespace" do
     it { is_expected.to match /\n- item a\n/ }
@@ -40,18 +40,53 @@ describe ReverseMarkdown do
   end
 
   context "list item containing multiple <p> tags" do
-    xit { is_expected.to match /\n- li 1, p 1\n\n- li 1, p 2\n/ }
+    it { is_expected.to include "- li 1, p 1\n\n  li 1, p 2\n\n- li 2, p 1\n" }
+  end
+
+  context "paragraphs followed by nested lists" do
+    let(:input) do
+      '<ul><li><p>Source:</p><ul><li><p>Readable path.</p></li>' \
+        '<li><p>Readable IO.</p></li></ul><p>More details.</p></li>' \
+        '<li><p>Destination:</p><ul><li><p>Writable path.</p></li></ul></li></ul>'
+    end
+
+    it "preserves every paragraph and nested item" do
+      is_expected.to eq "- Source:\n\n  - Readable path.\n\n  - Readable IO.\n\n" \
+        "  More details.\n\n- Destination:\n\n  - Writable path.\n\n"
+    end
+  end
+
+  context "paragraphs followed by nested ordered lists" do
+    let(:input) do
+      '<ol><li><p>First:</p><ol><li><p>Child one.</p></li>' \
+        '<li><p>Child two.</p></li></ol></li><li><p>Second.</p></li></ol>'
+    end
+
+    it "indents nested items past the parent marker" do
+      is_expected.to eq "1. First:\n\n   1. Child one.\n\n   2. Child two.\n\n2. Second.\n\n"
+    end
+  end
+
+  context "nested lists after a two-digit marker" do
+    let(:input) do
+      '<ol>' + '<li>Item.</li>' * 9 +
+        '<li><p>Tenth:</p><ul><li><p>Child.</p></li></ul></li></ol>'
+    end
+
+    it "accounts for the full marker width" do
+      is_expected.to include "10. Tenth:\n\n    - Child.\n"
+    end
   end
 
   context 'it produces correct numbering' do
     it { is_expected.to include "1. one" }
-    it { is_expected.to include "  1. one one" }
-    it { is_expected.to include "  2. one two" }
+    it { is_expected.to include "\n   1. one one" }
+    it { is_expected.to include "\n   2. one two" }
     it { is_expected.to include "2. two" }
-    it { is_expected.to include "  1. two one" }
-    it { is_expected.to include "    1. two one one" }
-    it { is_expected.to include "    2. two one two" }
-    it { is_expected.to include "  2. two two" }
+    it { is_expected.to include "\n   1. two one" }
+    it { is_expected.to include "\n      1. two one one" }
+    it { is_expected.to include "\n      2. two one two" }
+    it { is_expected.to include "\n   2. two two" }
     it { is_expected.to include "3. three" }
   end
 

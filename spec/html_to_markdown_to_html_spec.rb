@@ -62,6 +62,23 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
       ")
   end
 
+  it "should preserve paragraphs before and after nested lists" do
+    roundtrip_should_preserve(
+      '<ul><li><p>Source:</p><ul><li><p>Readable path.</p></li>' \
+        '<li><p>Readable IO.</p></li></ul><p>More details.</p></li>' \
+        '<li><p>Destination:</p><ul><li><p>Writable path.</p></li>' \
+        '<li><p>Writable IO.</p></li></ul></li></ul>'
+    )
+  end
+
+  it "should preserve mixed nested lists and their numbering" do
+    roundtrip_should_preserve(
+      '<ol><li><p>First:</p><ul><li><p>Child:</p><ol>' \
+        '<li><p>Grandchild one.</p></li><li><p>Grandchild two.</p></li></ol></li></ul></li>' \
+        '<li><p>Second.</p></li></ol>'
+    )
+  end
+
   it "should preserve <hr> tags" do
     roundtrip_should_preserve("<hr />")
   end

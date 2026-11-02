@@ -3,10 +3,14 @@ module ReverseMarkdown
     class Li < Base
       def convert(node, state = {})
         contains_child_paragraph = node.first_element_child ? node.first_element_child.name == 'p' : false
-        content_node             = contains_child_paragraph ? node.first_element_child : node
-        content                  = treat_children(content_node, state)
+        # Render nested lists relative to this item before indenting continuation lines.
+        content                  = treat_children(node, state.merge(ol_count: 0))
+        content                  = content.lstrip if contains_child_paragraph
         indentation              = indentation_from(state)
         prefix                   = prefix_for(node)
+        content                  = content.lines.map.with_index do |line, index|
+          index.zero? || line.strip.empty? ? line : "#{indentation}#{' ' * prefix.length}#{line}"
+        end.join
 
         "#{indentation}#{prefix}#{content.chomp}\n" +
           (contains_child_paragraph ? "\n" : '')
