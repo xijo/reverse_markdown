@@ -67,6 +67,14 @@ describe ReverseMarkdown do
     end
   end
 
+  context "an empty paragraph followed by a nested list" do
+    let(:input) { '<ul><li><p></p><ul><li>Child.</li></ul></li></ul>' }
+
+    it "keeps the child list below the empty parent marker" do
+      is_expected.to eq "- \n\n  - Child.\n\n"
+    end
+  end
+
   context "nested lists after a two-digit marker" do
     let(:input) do
       '<ol>' + '<li>Item.</li>' * 9 +
