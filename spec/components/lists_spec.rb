@@ -11,8 +11,8 @@ describe ReverseMarkdown do
   it { is_expected.to match /\n1. ordered list entry\n/ }
   it { is_expected.to match /\n2. ordered list entry 2\n/ }
   it { is_expected.to match /\n1. list entry 1st hierarchy\n/ }
-  it { is_expected.to match /\n {3}- nested unsorted list entry\n/ }
-  it { is_expected.to match /\n {5}1. deep nested list entry\n/ }
+  it { is_expected.to match /\n {4}- nested unsorted list entry\n/ }
+  it { is_expected.to match /\n {8}1. deep nested list entry\n/ }
 
   context "nested list with no whitespace" do
     it { is_expected.to match /\n- item a\n/ }
@@ -71,7 +71,7 @@ describe ReverseMarkdown do
     let(:input) { '<ul><li><p></p><ul><li>Child.</li></ul></li></ul>' }
 
     it "keeps the child list below the empty parent marker" do
-      is_expected.to eq "- \n\n  - Child.\n\n"
+      is_expected.to eq "- \n\n    - Child.\n\n"
     end
   end
 

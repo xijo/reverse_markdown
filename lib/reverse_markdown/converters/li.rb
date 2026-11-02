@@ -6,8 +6,10 @@ module ReverseMarkdown
         content                  = treat_children(node, state)
         content                  = content.sub(/\A[ \t]*\n\n/, '') if contains_child_paragraph
         prefix                   = prefix_for(node)
+        # Kramdown requires four-space continuation indentation after an empty marker line.
+        continuation_indentation = content.match?(/\A[ \t]*\n/) ? '    ' : ' ' * prefix.length
         content                  = content.lines.map.with_index do |line, index|
-          index.zero? || line.strip.empty? ? line : "#{' ' * prefix.length}#{line}"
+          index.zero? || line.strip.empty? ? line : "#{continuation_indentation}#{line}"
         end.join
 
         "#{prefix}#{content.chomp}\n" +

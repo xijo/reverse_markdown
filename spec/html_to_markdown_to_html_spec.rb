@@ -79,6 +79,16 @@ describe 'Round trip: HTML to markdown (via reverse_markdown) to HTML (via redca
     )
   end
 
+  %w[ul ol].each do |tag|
+    it "should keep child lists nested below empty #{tag} items" do
+      input = "<#{tag}><li><p></p><ul><li>Child.</li></ul></li></#{tag}>"
+      output = html2markdown2html(input)
+      expected = "<#{tag}><li><ul><li>Child.</li></ul></li></#{tag}>"
+
+      expect(normalize_html(output)).to eq expected
+    end
+  end
+
   it "should preserve <hr> tags" do
     roundtrip_should_preserve("<hr />")
   end
