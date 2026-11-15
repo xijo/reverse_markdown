@@ -7,6 +7,7 @@ module ReverseMarkdown
     end
 
     register :document, Bypass.new
+    register :'#document-fragment', Bypass.new
     register :html,     Bypass.new
     register :body,     Bypass.new
     register :span,     Bypass.new
