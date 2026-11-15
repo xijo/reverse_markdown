@@ -3,12 +3,16 @@ module ReverseMarkdown
     class Li < Base
       def convert(node, state = {})
         contains_child_paragraph = node.first_element_child ? node.first_element_child.name == 'p' : false
-        content_node             = contains_child_paragraph ? node.first_element_child : node
-        content                  = treat_children(content_node, state)
-        indentation              = indentation_from(state)
+        content                  = treat_children(node, state)
+        content                  = content.sub(/\A[ \t]*\n\n/, '') if contains_child_paragraph
         prefix                   = prefix_for(node)
+        # Kramdown requires four-space continuation indentation after an empty marker line.
+        continuation_indentation = content.match?(/\A[ \t]*\n/) ? '    ' : ' ' * prefix.length
+        content                  = content.lines.map.with_index do |line, index|
+          index.zero? || line.strip.empty? ? line : "#{continuation_indentation}#{line}"
+        end.join
 
-        "#{indentation}#{prefix}#{content.chomp}\n" +
+        "#{prefix}#{content.chomp}\n" +
           (contains_child_paragraph ? "\n" : '')
       end
 
@@ -19,11 +23,6 @@ module ReverseMarkdown
         else
           '- '
         end
-      end
-
-      def indentation_from(state)
-        length = state.fetch(:ol_count, 0)
-        '  ' * [length - 1, 0].max
       end
     end
 
