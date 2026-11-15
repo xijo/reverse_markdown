@@ -1,10 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Unreleased
-- Traverse native Nokogiri document fragments through the existing tag converters.
-- Preserve spaces, tabs, blank lines, and literal markup in inline and block code during prose cleanup, including code in blockquotes and syntax-highlighting wrappers.
-- Preserve nested lists and later paragraphs in list items that begin with a paragraph, with marker-aware continuation indentation, including empty parent items.
+## 3.1.0 - November 2026
+- Preserve spaces, blank lines and Markdown characters inside code, thanks @skatkov, see #116
+- Convert Nokogiri document fragments to Markdown, thanks @skatkov, see #116
+- `treat_children` returns placeholder text for code; custom converters that need the code read `node.text`, see #116
+- Keep nested lists and later paragraphs in list items that start with a paragraph, thanks @skatkov, see #117
+- Indent nested lists by the width of the parent marker, e.g. 3 spaces under `1.`, see #117
 
 ## 3.0.3 - September 2026
 - Make whitespace cleanup linear instead of quadratic, thanks @skatkov, see #114
