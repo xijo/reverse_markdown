@@ -2,7 +2,7 @@ module ReverseMarkdown
   module Converters
     class Code < Base
       def convert(node, state = {})
-        "`#{node.text}`"
+        preserve_literal("`#{node.text}`", state)
       end
     end
 

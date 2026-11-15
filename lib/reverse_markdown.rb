@@ -3,6 +3,7 @@ require 'reverse_markdown/version'
 require 'reverse_markdown/errors'
 require 'reverse_markdown/cleaner'
 require 'reverse_markdown/config'
+require 'reverse_markdown/literal_content'
 require 'reverse_markdown/converters'
 require 'reverse_markdown/converters/base'
 require 'reverse_markdown/converters/a'
@@ -45,8 +46,9 @@ module ReverseMarkdown
 
       root or return ''
 
-      result = ReverseMarkdown::Converters.lookup(root.name).convert(root)
-      cleaner.tidy(result)
+      literals = LiteralContent.new
+      result = ReverseMarkdown::Converters.lookup(root.name).convert(root, literal_content: literals)
+      literals.restore(cleaner.tidy(result))
     end
   end
 
