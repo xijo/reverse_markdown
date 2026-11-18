@@ -2,7 +2,8 @@ module ReverseMarkdown
   module Converters
     class Td < Base
       def convert(node, state = {})
-        content = treat_children(node, state)
+        # A table row is one line: keep line breaks inside the cell as <br>
+        content = treat_children(node, state).strip.gsub(/\s*\n\s*/, '<br>')
         " #{content} |"
       end
     end
