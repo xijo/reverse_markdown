@@ -14,6 +14,11 @@ describe ReverseMarkdown do
   it { is_expected.to match /\n\| _header oblique_ \| \*\*header bold\*\* \| `header code` \|\n| --- \| --- \| --- \|\n/ }
   it { is_expected.to match /\n\| _data oblique_ \| \*\*data bold\*\* \| `data code` \|\n/ }
 
+  it 'escapes a pipe inside a cell' do
+    html = '<table><tr><th>Option</th><th>Values</th></tr><tr><td>a | b</td><td><code>fast|safe</code></td></tr></table>'
+    expect(ReverseMarkdown.convert(html)).to include("| a \\| b | `fast\\|safe` |\n")
+  end
+
   it 'keeps a line break inside a cell on the row' do
     html = '<table><tr><th>Name</th><th>Address</th></tr><tr><td>Alice</td><td>1 Main St<br>Springfield</td></tr></table>'
     expect(ReverseMarkdown.convert(html)).to include("| Alice | 1 Main St<br>Springfield |\n")
